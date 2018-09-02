@@ -19,10 +19,35 @@ export class BookingsAndCollections extends Component {
 
     handleDuplicatePiece(id) {
 
-        console.log('inside duplicate function');
+        const { piecesData } = this.state;
+        let piecesDataClone = _.cloneDeep(piecesData);
+        let pieceToDuplicate;
 
-        const { pieceData, handlePieceDuplicate } = this.state;
-        let pieceDataClone = _.cloneDeep(pieceData);
+        Promise.resolve(_.cloneDeep(_.find(piecesDataClone, pieceData => pieceData.id === id)))
+
+            //
+            .then(pieceData => {
+                console.log(pieceData);
+                pieceData.id = _.uniqueId();
+                pieceToDuplicate = pieceData;
+                return Promise.resolve(_.findIndex(piecesDataClone, pieceToDuplicate));
+            })
+
+            // This adds another piece to the View
+            .then(indexOfPieceToDuplicate => {
+                piecesDataClone.splice(indexOfPieceToDuplicate - 1 , 0, pieceToDuplicate);
+                piecesDataClone.join();
+                return Promise.resolve(piecesDataClone);
+            })
+
+            // This removes it from the state
+            .then(piecesData => {
+                return Promise.resolve(this.setState({piecesData}));
+            })
+
+
+        console.log('inside duplicate function ' + id);
+
 
     }
 
@@ -129,6 +154,7 @@ export class BookingsAndCollections extends Component {
                             return(
                                 <Grid.Row key={pieceData.id}>
                                     <Piece
+                                        {...pieceData}
                                         handleDuplicate={ handleDuplicatePiece }
                                     />
                                 </Grid.Row>);

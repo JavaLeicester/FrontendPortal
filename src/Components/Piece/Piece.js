@@ -6,10 +6,11 @@ export class Piece extends React.Component {
 
     constructor(props) {
         super(props);
-
     }
 
     render() {
+
+        // id comes from pieveData.id
         const { id, handleDuplicate } = this.props;
 
         return(
