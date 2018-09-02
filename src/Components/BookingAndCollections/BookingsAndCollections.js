@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button } from 'semantic-ui-react';
+import { bookingAndCollectionModel } from '../../domain/';
 
 export class BookingsAndCollections extends Component {
 
@@ -9,17 +11,30 @@ export class BookingsAndCollections extends Component {
         super(props);
         this.state = {
             isLooselyPacked: [{key: "yes", text: "yes"}, {key: "no", text: "no"}],
+            piecesData:[new bookingAndCollectionModel()]
         };
+
+        this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
+    }
+
+    handleDuplicatePiece(id) {
+
+        console.log('inside duplicate function');
+
+        const { pieceData, handlePieceDuplicate } = this.state;
+        let pieceDataClone = _.cloneDeep(pieceData);
 
     }
 
     render() {
 
-        var { isLooselyPacked } = this.state;
+        var { isLooselyPacked, piecesData } = this.state;
+
+        const { handleDuplicatePiece } = this;
 
         return(
             <Grid className='one column center aligned blue' container>
-                <Grid.Column width={12} class="form">
+                <Grid.Column width={12}>
                     <Form className="blue">
                         <Segment className='raised small'>
                             Collection Call
@@ -110,15 +125,15 @@ export class BookingsAndCollections extends Component {
 
                         <Divider />
 
-                        <Grid.Row>
-                            <Piece />
-                        </Grid.Row>
-
-                        <Divider className="black" />
-
-                        <Button
-                            content='Confirm Collection'
-                        />
+                        { _.map(piecesData, pieceData => {
+                            return(
+                                <Grid.Row key={pieceData.id}>
+                                    <Piece
+                                        handleDuplicate={ handleDuplicatePiece }
+                                    />
+                                </Grid.Row>);
+                            })
+                        }
 
                     </Form>
 

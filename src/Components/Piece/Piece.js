@@ -1,10 +1,16 @@
 import './Piece.css';
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 
 export class Piece extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+    }
+
     render() {
+        const { id, handleDuplicate } = this.props;
 
         return(
 
@@ -30,6 +36,17 @@ export class Piece extends React.Component {
                     label="Height (cm)"
                 />
 
+                <Button
+                    content="Add"
+                    className="blue large"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        handleDuplicate(id);
+                    }}
+                />
+                <Button
+                    content="Delete"
+                />
 
             </Form.Group>
 
