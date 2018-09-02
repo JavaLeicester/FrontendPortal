@@ -1,0 +1,29 @@
+.form{
+   background-color: rgba(34, 105, 98,0.2);
+}
+
+
+.ui.booking {
+    font-size: x-small ;
+    margin-top: 0px;
+}
+
+.segment {
+    background-color: lightblue !important;
+    color: black;
+    font-size: small !important;
+    height: 5vh !important;
+}
+
+.package {
+    background-color: transparent;
+    alignment-baseline: top;
+    width: 97%;
+    margin-left: 1.5% !important;
+    margin-right: 1.5% !important;
+}
+
+.text {
+    color: black;
+    font-size: x-small;
+}
