@@ -3,7 +3,7 @@ import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button } from 'semantic-ui-react';
-import { bookingAndCollectionModel } from '../../domain/';
+import { bookingAndCollectionModel, NotificationData } from '../../domain/';
 import { validateInputs } from '../Common';
 
 export class BookingsAndCollections extends Component {
@@ -22,7 +22,7 @@ export class BookingsAndCollections extends Component {
             generalDescription: '',
             isLooselyPacked: '',
             isContainedHazardousGoods: '',
-            validationResult:''
+            validationResult:{}
         };
 
         this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
@@ -42,14 +42,18 @@ export class BookingsAndCollections extends Component {
 
     }
 
-    handleCustomerNameChange(event, {name, value }) {
+    handleCustomerNameChange(event, {name, value}) {
 
         event.preventDefault();
-        this.setState({[name]: value });
-        this.handleFormValidation()
-            .then()
-            .catch(error => errorHandler(error));
+        this.setState({[name]: value});
+        const {errorHandler} = this.props;
 
+        return Promise.resolve(this.setState({ [name]: value }))
+        .then(() => {
+            return this.handleFormValidation();
+        })
+        .then()
+        .catch(error => errorHandler(error));
     }
 
     handleHouseNumberChange(event, {name, value }) {
@@ -124,17 +128,20 @@ export class BookingsAndCollections extends Component {
                        specialInstructions,
                        generalDescription,
                        piecesData)
-            .then((validationResult) => {// If valid the form
+
+            // If valid the form
+            .then((validationResult) => {
                 this.setState({validationResult});
                 return resolve(validationResult);
-                console.log("The form is valid");
-                console.log(validationResult);
             })
 
             // If not valid the form
             .catch(({validationErrors }) => {
+                const { validationResult } = this.state;
+                validationResult.validationErrors = validationErrors;
+                this.setState({ validationResult });
+                return reject(new NotificationData('red','ValidationError', 'Error in required fields'));
 
-                console.log(JSON.stringify(validationErrors, null, 4));
             });
 
         }))
@@ -254,9 +261,9 @@ export class BookingsAndCollections extends Component {
         } = this;
 
         return(
-            <Grid className='one column center aligned blue' container>
+            <Grid className='one column center aligned blue' class="form" container>
                 <Grid.Column width={12}>
-                    <Form onSubmit={this.handleSubmit} className="blue">
+                    <Form onSubmit={this.handleSubmit} class="form">
                         <Segment className='raised small'>
                             Collection Call
                         </Segment>
