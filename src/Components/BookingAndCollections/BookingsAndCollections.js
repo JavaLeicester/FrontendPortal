@@ -14,17 +14,12 @@ export class BookingsAndCollections extends Component {
             piecesData:[new bookingAndCollectionModel()]
         };
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
         this.handleDeletePiece = this.handleDeletePiece.bind(this);
+        this.handlePieceDataChange = this.handlePieceDataChange.bind(this);
 
     }
 
-    handleChange(event) {
-        event.preventDefault();
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
-    }
 
     handleDeletePiece(id) {
 
@@ -88,6 +83,27 @@ export class BookingsAndCollections extends Component {
 
     }
 
+    handlePieceDataChange(id, nameOfField, valueOfField) {
+
+        const { piecesData } = this.state;
+
+        Promise.resolve(_.find(piecesData, matchApiece => {
+            return matchApiece.id === id;
+        }))
+            .then(pieceToUpdate => {
+                pieceToUpdate[nameOfField] = valueOfField;
+                this.setState({piecesDatas:piecesData });
+                return Promise.resolve("updated successfully!");
+            })
+            // Test function
+            .then ( value => {
+                console.log("INSIDE THEN: " + value);
+                console.log("Array List is here: ");
+                console.log(this.state.piecesData);
+
+             })
+    }
+
 
 
     render() {
@@ -97,7 +113,8 @@ export class BookingsAndCollections extends Component {
         // Get the functions from this.state
         const {
             handleDuplicatePiece,
-            handleDeletePiece
+            handleDeletePiece,
+            handlePieceDataChange
         } = this;
 
         return(
@@ -199,11 +216,17 @@ export class BookingsAndCollections extends Component {
                                     <Piece
                                         {...pieceData}
                                         handleDuplicate={ handleDuplicatePiece }
+                                        handleChange={ handlePieceDataChange }
                                         handleDelete={ handleDeletePiece }
                                     />
                                 </Grid.Row>);
                             })
                         }
+
+                        <Button
+                            content="Create a booking and collection"
+                            className="red small"
+                        />
 
                     </Form>
 
