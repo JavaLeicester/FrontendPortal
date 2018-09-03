@@ -31,11 +31,81 @@ export class BookingsAndCollections extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFormValidation = this.handleFormValidation.bind(this);
 
+        this.handleCustomerNameChange = this.handleCustomerNameChange.bind(this);
+        this.handleHouseNumberChange = this.handleHouseNumberChange.bind(this);
+        this.handleStreetChange = this.handleStreetChange.bind(this);
+        this.handlePostCodeChange = this.handlePostCodeChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handleSpecialDeliveryChange = this.handleSpecialDeliveryChange.bind(this);
+        this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
+        this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
+
     }
 
+    handleCustomerNameChange(event, {name, value }) {
+
+        event.preventDefault();
+        this.setState({[name]: value });
+        this.handleFormValidation()
+            .then()
+            .catch(error => errorHandler(error));
+
+    }
+
+    handleHouseNumberChange(event, {name, value }) {
+
+        event.preventDefault();
+        this.setState({[name]: value });
+
+    }
+
+    handleStreetChange(event, {name, value }) {
+
+        event.preventDefault();
+        this.setState({[name]: value });
+
+    }
+
+    handlePostCodeChange(event,{name, value}){
+
+        event.preventDefault();
+        this.setState({[name]: value });
+
+    }
+
+    handleCityChange(event,{name, value}){
+
+        event.preventDefault();
+        this.setState({[name]: value});
+
+    }
+
+    handleSpecialDeliveryChange(event,{name,value}) {
+
+        event.preventDefault();
+        this.setState({[name]: value});
+    }
+
+    handleGeneralDescriptionChange(event,{name,value}) {
+
+        event.preventDefault();
+        this.setState({[name]: value});
+    }
+
+    handleHazardousGoods(event, {name, value}) {
+        event.preventDefault();
+        this.setState({[name]: value});
+
+    }
+
+    handleIsLooselyPacked(event, {name, value}) {
+        event.preventDefault();
+        this.setState({[name]: value});
+    }
+
+
     // If comming from handlePieceDataChange, we update the pieces first
-    // then once we update the indivdiual pieces we then do validation
-    // on them
+    // then once we update the indivdiual pieces we then do validation on them
     handleFormValidation() {
         return new Promise(((resolve, reject) => {
 
@@ -67,14 +137,9 @@ export class BookingsAndCollections extends Component {
                 console.log(JSON.stringify(validationErrors, null, 4));
             });
 
-
-
-
-
         }))
 
     }
-
 
     handleDeletePiece(id) {
 
@@ -159,7 +224,7 @@ export class BookingsAndCollections extends Component {
             .then(() => this.handleFormValidation())
 
             // Test function
-            .then ( value => {
+            .then (value => {
                 alert("AFTER THE FORM VALIDATION CALL");
                 console.log("INSIDE THEN: " + value);
                 console.log("Array List is here: ");
@@ -176,7 +241,16 @@ export class BookingsAndCollections extends Component {
         const {
             handleDuplicatePiece,
             handleDeletePiece,
-            handlePieceDataChange
+            handlePieceDataChange,
+            handleCustomerNameChange,
+            handleHouseNumberChange,
+            handleStreetChange,
+            handleGeneralDescriptionChange,
+            handlePostCodeChange,
+            handleCityChange,
+            handleSpecialDeliveryChange,
+            handleHazardousGoods,
+            handleIsLooselyPacked
         } = this;
 
         return(
@@ -197,7 +271,7 @@ export class BookingsAndCollections extends Component {
                                 name='customerName'
                                 placeholder='customerName'
                                 label="Customer name"
-
+                                onChange={handleCustomerNameChange}
                             />
                         </Form.Group>
 
@@ -207,6 +281,7 @@ export class BookingsAndCollections extends Component {
                                 name='houseNumber'
                                 placeholder='houseNumber'
                                 label="House number"
+                                onChange={handleHouseNumberChange}
                             />
                         </Form.Group>
 
@@ -216,6 +291,7 @@ export class BookingsAndCollections extends Component {
                                 name='street'
                                 placeholder='street'
                                 label="street"
+                                onChange={handleStreetChange}
                             />
                         </Form.Group>
 
@@ -225,6 +301,7 @@ export class BookingsAndCollections extends Component {
                                 name='postcode'
                                 placeholder='postcode'
                                 label="postcode"
+                                onChange={handlePostCodeChange}
                             />
                         </Form.Group>
 
@@ -234,6 +311,7 @@ export class BookingsAndCollections extends Component {
                                 name='City'
                                 placeholder='City'
                                 label="City"
+                                onChange={ handleCityChange }
                             />
                         </Form.Group>
 
@@ -243,6 +321,8 @@ export class BookingsAndCollections extends Component {
                                 name="specialInstructions"
                                 placeholder="Special Instructions For Delivery"
                                 label="Special instructions for Delivery"
+                                onChange={handleSpecialDeliveryChange}
+                                name="specialInstructions"
                             />
                         </Form.Group>
 
@@ -255,18 +335,24 @@ export class BookingsAndCollections extends Component {
                                 control={ TextArea }
                                 label="General description of Goods"
                                 placeholder="General description of Goods"
+                                onChange={handleGeneralDescriptionChange}
+                                name="generalDescription"
                             />
                         </Form.Group>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Radio
                                 label='Tick, if parcel loosely packed!'
+                                onChange={handleIsLooselyPacked}
+                                name='isLooselyPacked'
                             />
                         </Form.Group>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Radio
-                                label='Tick, if parcel/s contain hazardous goods (e.g. perfumes)'
+                                label='Tick, to confirm advise given about hazardous goods (e.g. perfumes)'
+                                onChange={handleHazardousGoods} handleIsLooselyPacked
+                                name='isContainedHazardousGoods'
                             />
                         </Form.Group>
 
