@@ -41,9 +41,7 @@ export class BookingsAndCollections extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
     }
-
 
     handleDuplicatePiece(id, weight, length, width, height) {
 
@@ -84,7 +82,6 @@ export class BookingsAndCollections extends Component {
 
                 return Promise.resolve(this.setState({piecesData}));
             })
-
     }
 
     handlePieceDataChange(id, nameOfField, valueOfField) {
@@ -107,8 +104,6 @@ export class BookingsAndCollections extends Component {
 
              })
     }
-
-
 
     render() {
 
