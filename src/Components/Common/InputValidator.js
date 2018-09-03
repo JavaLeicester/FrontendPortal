@@ -21,7 +21,7 @@ export default function InputValidator (customerName,
 
         if (isEmpty(customerName)) {
 
-            validationErrors['CustomerName'] = {key: _.uniqueId(), isCustomerNameValid: false, message: "From Customer Name should be valid"};
+            validationErrors['customerName'] = {key: _.uniqueId(), isCustomerNameValid: false, message: "From Customer Name should be valid"};
             isFormValid = false;
         }
 
