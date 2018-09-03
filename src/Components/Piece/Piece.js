@@ -10,8 +10,12 @@ export class Piece extends React.Component {
 
     render() {
 
-        // id comes from pieveData.id
-        const { id, handleDuplicate } = this.props;
+        // id comes from pieceData.id
+        const { id, weight, length, width, height } = this.props;
+        const { handleDelete, handleDuplicate} = this.props;
+
+        console.log("The property is ... ");
+        console.log(this.props);
 
         return(
 
@@ -42,11 +46,16 @@ export class Piece extends React.Component {
                     className="blue large"
                     onClick={(event) => {
                         event.preventDefault();
-                        handleDuplicate(id);
+                        handleDuplicate(id, weight, length, width, height);
                     }}
                 />
                 <Button
                     content="Delete"
+                    className="red large"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        handleDelete(id);
+                    }}
                 />
 
             </Form.Group>
