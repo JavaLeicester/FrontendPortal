@@ -1,10 +1,21 @@
 import './Piece.css';
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 
 export class Piece extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+
+        // id comes from pieceData.id
+        const { id, weight, length, width, height } = this.props;
+        const { handleDelete, handleDuplicate} = this.props;
+
+        console.log("The property is ... ");
+        console.log(this.props);
 
         return(
 
@@ -30,6 +41,22 @@ export class Piece extends React.Component {
                     label="Height (cm)"
                 />
 
+                <Button
+                    content="Add"
+                    className="blue large"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        handleDuplicate(id, weight, length, width, height);
+                    }}
+                />
+                <Button
+                    content="Delete"
+                    className="red large"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        handleDelete(id);
+                    }}
+                />
 
             </Form.Group>
 

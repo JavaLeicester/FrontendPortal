@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button } from 'semantic-ui-react';
+import { bookingAndCollectionModel } from '../../domain/';
 
 export class BookingsAndCollections extends Component {
 
@@ -9,17 +11,98 @@ export class BookingsAndCollections extends Component {
         super(props);
         this.state = {
             isLooselyPacked: [{key: "yes", text: "yes"}, {key: "no", text: "no"}],
+            piecesData:[new bookingAndCollectionModel()]
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
+        this.handleDeletePiece = this.handleDeletePiece.bind(this);
 
     }
 
+    handleChange(event) {
+        event.preventDefault();
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+    }
+
+    handleDeletePiece(id) {
+
+        // Get the current list of pieces
+        const { piecesData } = this.state;
+
+        // Do nothing if only one piece displaying
+        if (piecesData.length === 1) {
+
+            // Do nothing. Later on data a notification
+
+        // If there is more than one then remove from the array
+        } else {
+            var modifiedArray = _.remove(piecesData, (onePiece) => onePiece.id === id);
+            this.setState({piecesData: piecesData });
+        }
+
+
+    }
+
+
+    handleDuplicatePiece(id, weight, length, width, height) {
+
+        console.log("The results are the following: .... ");
+        console.log(id, weight, length, width, height);
+
+        const { piecesData } = this.state;
+        let piecesDataClone = _.cloneDeep(piecesData);
+        let pieceToDuplicate;
+
+        Promise.resolve(_.cloneDeep(_.find(piecesDataClone, pieceData => pieceData.id === id)))
+
+            // pieceData the variable that we pass in is equivalent to the cloning of the
+            // match
+            .then(pieceData => {
+
+                // Keep the fields the same increment the id value
+                pieceData.id = _.uniqueId();
+               
+                pieceToDuplicate = pieceData;
+                return Promise.resolve(_.findIndex(piecesDataClone, pieceToDuplicate));
+            })
+
+            // This adds another piece to the View
+            .then(indexOfPieceToDuplicate => {
+
+                console.log("index of piece to duplicate");
+                console.log(indexOfPieceToDuplicate);
+                piecesDataClone.splice(indexOfPieceToDuplicate - 1 , 0, pieceToDuplicate);
+
+               // piecesDataClone.join();
+                console.log(piecesDataClone);
+                return Promise.resolve(piecesDataClone);
+            })
+
+            // This removes it from the state
+            .then(piecesData => {
+
+                return Promise.resolve(this.setState({piecesData}));
+            })
+
+    }
+
+
+
     render() {
 
-        var { isLooselyPacked } = this.state;
+        var { isLooselyPacked, piecesData } = this.state;
+
+        // Get the functions from this.state
+        const {
+            handleDuplicatePiece,
+            handleDeletePiece
+        } = this;
 
         return(
             <Grid className='one column center aligned blue' container>
-                <Grid.Column width={12} class="form">
+                <Grid.Column width={12}>
                     <Form className="blue">
                         <Segment className='raised small'>
                             Collection Call
@@ -110,15 +193,17 @@ export class BookingsAndCollections extends Component {
 
                         <Divider />
 
-                        <Grid.Row>
-                            <Piece />
-                        </Grid.Row>
-
-                        <Divider className="black" />
-
-                        <Button
-                            content='Confirm Collection'
-                        />
+                        { _.map(piecesData, pieceData => {
+                            return(
+                                <Grid.Row key={pieceData.id}>
+                                    <Piece
+                                        {...pieceData}
+                                        handleDuplicate={ handleDuplicatePiece }
+                                        handleDelete={ handleDeletePiece }
+                                    />
+                                </Grid.Row>);
+                            })
+                        }
 
                     </Form>
 
