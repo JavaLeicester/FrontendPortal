@@ -4,6 +4,7 @@ import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button } from 'semantic-ui-react';
 import { bookingAndCollectionModel } from '../../domain/';
+import { validateInputs } from '../Common';
 
 export class BookingsAndCollections extends Component {
 
@@ -11,13 +12,66 @@ export class BookingsAndCollections extends Component {
         super(props);
         this.state = {
             isLooselyPacked: [{key: "yes", text: "yes"}, {key: "no", text: "no"}],
-            piecesData:[new bookingAndCollectionModel()]
+            piecesData:[new bookingAndCollectionModel()],
+            customerName:'',
+            houseNumber: '',
+            street: '',
+            postcode: '',
+            city: '',
+            specialInstructions: '',
+            generalDescription: '',
+            isLooselyPacked: '',
+            isContainedHazardousGoods: '',
+            validationResult:''
         };
 
         this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
         this.handleDeletePiece = this.handleDeletePiece.bind(this);
         this.handlePieceDataChange = this.handlePieceDataChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFormValidation = this.handleFormValidation.bind(this);
+
+    }
+
+    // If comming from handlePieceDataChange, we update the pieces first
+    // then once we update the indivdiual pieces we then do validation
+    // on them
+    handleFormValidation() {
+        return new Promise(((resolve, reject) => {
+
+        // get all the properties from the state
+        const { customerName,houseNumber, street, postcode, city,
+                specialInstructions,generalDescription, isLooselyPacked,
+                isContainedHazardousGoods, piecesData } = this.state;
+
+        // Pass all of the properties from the state into the InputValidator function
+        validateInputs(
+                       customerName,
+                       houseNumber,
+                       street,
+                       postcode,
+                       city,
+                       specialInstructions,
+                       generalDescription,
+                       piecesData)
+            .then((validationResult) => {// If valid the form
+                this.setState({validationResult});
+                return resolve(validationResult);
+                console.log("The form is valid");
+                console.log(validationResult);
+            })
+
+            // If not valid the form
+            .catch(({validationErrors }) => {
+
+                console.log(JSON.stringify(validationErrors, null, 4));
+            });
+
+
+
+
+
+        }))
 
     }
 
@@ -84,20 +138,29 @@ export class BookingsAndCollections extends Component {
             })
     }
 
+    // Child child Piece invokes this class as Parent passing
+    // up all the relevant properties
     handlePieceDataChange(id, nameOfField, valueOfField) {
 
+        // Get the list of pieces from the State
         const { piecesData } = this.state;
 
         Promise.resolve(_.find(piecesData, matchApiece => {
             return matchApiece.id === id;
         }))
+            // Update the piece first in the state
             .then(pieceToUpdate => {
                 pieceToUpdate[nameOfField] = valueOfField;
                 this.setState({piecesDatas:piecesData });
                 return Promise.resolve("updated successfully!");
             })
+
+            // Then handle the form validation
+            .then(() => this.handleFormValidation())
+
             // Test function
             .then ( value => {
+                alert("AFTER THE FORM VALIDATION CALL");
                 console.log("INSIDE THEN: " + value);
                 console.log("Array List is here: ");
                 console.log(this.state.piecesData);
