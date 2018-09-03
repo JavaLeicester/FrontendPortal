@@ -17,6 +17,7 @@ export class BookingsAndCollections extends Component {
         this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
         this.handleDeletePiece = this.handleDeletePiece.bind(this);
         this.handlePieceDataChange = this.handlePieceDataChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
@@ -36,7 +37,10 @@ export class BookingsAndCollections extends Component {
             var modifiedArray = _.remove(piecesData, (onePiece) => onePiece.id === id);
             this.setState({piecesData: piecesData });
         }
+    }
 
+    handleSubmit(event) {
+        event.preventDefault();
 
     }
 
@@ -120,7 +124,7 @@ export class BookingsAndCollections extends Component {
         return(
             <Grid className='one column center aligned blue' container>
                 <Grid.Column width={12}>
-                    <Form className="blue">
+                    <Form onSubmit={this.handleSubmit} className="blue">
                         <Segment className='raised small'>
                             Collection Call
                         </Segment>
