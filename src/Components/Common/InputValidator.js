@@ -41,17 +41,17 @@ export default function InputValidator (customerName,
         }
 
         if(isEmpty(city)) {
-            validationErrors["City"] = {key: _.uniqueId(), isCityValid: false, message: "City not valid"};
+            validationErrors["city"] = {key: _.uniqueId(), isCityValid: false, message: "City not valid"};
             isFormValid = false;
         }
 
         if(isEmpty(specialInstructions)) {
-            validationErrors["specialInstructions"] = {key: _.uniqueId(), isCityValid: false, message: "Special instructions not valid"};
+            validationErrors["specialInstructions"] = {key: _.uniqueId(), isSpecialInstructionValid: false, message: "Special instructions not valid"};
             isFormValid = false;
         }
 
         if(isEmpty(generalDescription)) {
-            validationErrors["generalDescription"] = {key: _.uniqueId(), isGeneralDescription: false, message: "General Description not valid"};
+            validationErrors["generalDescription"] = {key: _.uniqueId(), isGeneralDescriptionValid: false, message: "General Description not valid"};
             isFormValid = false;
         }
 
