@@ -2,9 +2,15 @@ import _ from 'lodash';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
-import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
-import { bookingAndCollectionModel, NotificationData } from '../../domain/';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
 import { validateInputs, ValidationError, CheckBox } from '../Common';
+import { bookingAndCollectionModel, NotificationData } from '../../domain/';
+import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
 
 export class BookingsAndCollections extends Component {
 
@@ -23,6 +29,7 @@ export class BookingsAndCollections extends Component {
             isGoing: false,
             isHazardousGoods: false,
             isLooselyPacked: false,
+            startDate: moment()
         };
 
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
@@ -414,6 +421,11 @@ export class BookingsAndCollections extends Component {
                         <Divider />
 
                         <Header> Parcel Information </Header>
+
+                        <DatePicker
+                            selected={this.state.startDate}
+
+                        />
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
