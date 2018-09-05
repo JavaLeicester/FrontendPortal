@@ -2,7 +2,7 @@ import _ from 'lodash';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
-import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button } from 'semantic-ui-react';
+import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
 import { bookingAndCollectionModel, NotificationData } from '../../domain/';
 import { validateInputs, ValidationError } from '../Common';
 
@@ -11,7 +11,6 @@ export class BookingsAndCollections extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLooselyPacked: [{key: "yes", text: "yes"}, {key: "no", text: "no"}],
             piecesData:[new bookingAndCollectionModel()],
             customerName:'',
             houseNumber: '',
@@ -20,7 +19,7 @@ export class BookingsAndCollections extends Component {
             city: '',
             specialInstructions: '',
             generalDescription: '',
-            isLooselyPacked: '',
+            isLooselyPacked: false,
             isContainedHazardousGoods: '',
             validationResult:{}
         };
@@ -40,6 +39,7 @@ export class BookingsAndCollections extends Component {
         this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
         this.handleGeneralDescriptionChange = this.handleGeneralDescriptionChange.bind(this);
+        this.handleLooselyPackedClicked = this.handleLooselyPackedClicked.bind(this);
 
     }
 
@@ -97,6 +97,22 @@ export class BookingsAndCollections extends Component {
 
     }
 
+    handleLooselyPackedClicked(event,{name, value}) {
+        console.log("The name value is ...");
+        console.log(name);
+        console.log(this.state.isLooselyPacked);
+
+        Promise.resolve(this.setState({
+            isLooselyPacked : !this.state.isLooselyPacked
+        })
+        ).then(
+            console.log(this.state.isLooselyPacked)
+        );
+
+
+
+    }
+
     handleCityChange(event,{name, value}) {
 
         event.preventDefault();
@@ -123,7 +139,6 @@ export class BookingsAndCollections extends Component {
             .then()
             .catch(error => errorHandler(error));
     }
-
 
     handleGeneralDescriptionChange(event,{name,value}) {
 
@@ -312,7 +327,8 @@ export class BookingsAndCollections extends Component {
             handleCityChange,
             handleSpecialDeliveryChange,
             handleHazardousGoods,
-            handleIsLooselyPacked
+            handleIsLooselyPacked,
+            handleLooselyPackedClicked,
         } = this;
 
         return(
@@ -403,11 +419,14 @@ export class BookingsAndCollections extends Component {
                         </Form.Group>
 
                         <Form.Group widths='equal' className='package'>
-                            <Form.Radio
+                            <Form.Field
+                                control={ Checkbox }
                                 label='Tick, if parcel loosely packed!'
-                                onChange={handleIsLooselyPacked}
                                 name='isLooselyPacked'
-                            />
+                                checked={ isLooselyPacked }
+                                onChange={ handleLooselyPackedClicked }
+                                //checked={isLooselyPacked}
+                             />
                         </Form.Group>
 
                         <Form.Group widths='equal' className='package'>
@@ -438,6 +457,7 @@ export class BookingsAndCollections extends Component {
                         <Button
                             content="Create a booking and collection"
                             className="red small"
+
                         />
 
                     </Form>
