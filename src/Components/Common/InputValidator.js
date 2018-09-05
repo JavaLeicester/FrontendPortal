@@ -107,7 +107,7 @@ export default function InputValidator (customerName,
             // When you have checked each field individually
             // Then we must inspect the boolean value
             .then(() => {
-                if(!isFormValid) {
+                if (!isFormValid) {
                     return reject({ validationErrors, isFormValid, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}})
                 }
                 return resolve({
@@ -116,9 +116,9 @@ export default function InputValidator (customerName,
                     data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}
 
                 })
-            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
 
-            });
+            })
+            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
 
 
     }); // End first promise

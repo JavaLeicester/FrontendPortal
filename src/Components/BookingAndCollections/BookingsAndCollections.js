@@ -4,7 +4,7 @@ import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
 import { bookingAndCollectionModel, NotificationData } from '../../domain/';
-import { validateInputs, ValidationError } from '../Common';
+import { validateInputs, ValidationError, CheckBox } from '../Common';
 
 export class BookingsAndCollections extends Component {
 
@@ -19,10 +19,14 @@ export class BookingsAndCollections extends Component {
             city: '',
             specialInstructions: '',
             generalDescription: '',
+            validationResult: {},
+            isGoing: false,
+            isHazardousGoods: false,
             isLooselyPacked: false,
-            isContainedHazardousGoods: '',
-            validationResult:{}
         };
+
+        this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
+        this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
 
         this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
         this.handleDeletePiece = this.handleDeletePiece.bind(this);
@@ -36,10 +40,34 @@ export class BookingsAndCollections extends Component {
         this.handlePostCodeChange = this.handlePostCodeChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleSpecialDeliveryChange = this.handleSpecialDeliveryChange.bind(this);
-        this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
-        this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
+
         this.handleGeneralDescriptionChange = this.handleGeneralDescriptionChange.bind(this);
-        this.handleLooselyPackedClicked = this.handleLooselyPackedClicked.bind(this);
+
+
+    }
+
+
+    handleHazardousGoods(event) {
+
+        const target = event.target;
+        const value = target.type == 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+
+    }
+
+    handleIsLooselyPacked(event) {
+
+        const target = event.target;
+        const value = target.type == 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
 
     }
 
@@ -54,7 +82,7 @@ export class BookingsAndCollections extends Component {
         .then(() => {
             return this.handleFormValidation();
         })
-        // .then() works without the then()
+        .then() //works without the then()
         .catch(error => errorHandler(error));
     }
 
@@ -154,23 +182,7 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
-    handleHazardousGoods(event, {name, value}) {
 
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value}))
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleIsLooselyPacked(event, {name, value}) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value}))
-            .then()
-            .catch(error => errorHandler(error))
-    }
 
 
     // If comming from handlePieceDataChange, we update the pieces first
@@ -195,6 +207,7 @@ export class BookingsAndCollections extends Component {
                            piecesData)
 
             // If valid the form
+            // we are returned here from line 113 in InputValidator
             .then((validationResult) => {
                 this.setState({validationResult});
                 return resolve(validationResult);
@@ -203,10 +216,7 @@ export class BookingsAndCollections extends Component {
             // If not valid the form
             .catch(({validationErrors }) => {
                 const { validationResult } = this.state;
-                validationResult["validationErrors"] = validationErrors;
-                //alert(validationResult.validationErrors);
-                //alert(JSON.stringify(validationResult.validationErrors, null, 4));
-
+                validationResult.validationErrors = validationErrors;
                 this.setState({ validationResult });
                 return reject(new NotificationData('red','ValidationError', 'Error in required fields'));
 
@@ -235,6 +245,11 @@ export class BookingsAndCollections extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        const { errorHandler } = this.props;
+        this.handleFormValidation()
+            .then(({data}) => alert("Success happened"))
+            .catch(error => errorHandler(error));
+
     }
 
     handleDuplicatePiece(id, weight, length, width, height) {
@@ -282,6 +297,7 @@ export class BookingsAndCollections extends Component {
     // up all the relevant properties
     handlePieceDataChange(id, nameOfField, valueOfField) {
 
+        const { errorHandler } = this.props;
         // Get the list of pieces from the State
         const { piecesData } = this.state;
 
@@ -294,23 +310,16 @@ export class BookingsAndCollections extends Component {
                 this.setState({piecesDatas:piecesData });
                 return Promise.resolve("updated successfully!");
             })
-
             // Then handle the form validation
             .then(() => this.handleFormValidation())
-
-            // Test function
-            .then (value => {
-                alert("AFTER THE FORM VALIDATION CALL");
-                console.log("INSIDE THEN: " + value);
-                console.log("Array List is here: ");
-                console.log(this.state.piecesData);
-
-             })
+            .catch(error => {
+                errorHandler(error);
+            });
     }
 
     render() {
 
-        var { isLooselyPacked, piecesData, validationResult } = this.state;
+        var { piecesData, validationResult } = this.state;
 
         const { validationErrors } = validationResult;
 
@@ -328,7 +337,6 @@ export class BookingsAndCollections extends Component {
             handleSpecialDeliveryChange,
             handleHazardousGoods,
             handleIsLooselyPacked,
-            handleLooselyPackedClicked,
         } = this;
 
         return(
@@ -418,24 +426,24 @@ export class BookingsAndCollections extends Component {
                             />
                         </Form.Group>
 
-                        <Form.Group widths='equal' className='package'>
-                            <Form.Field
-                                control={ Checkbox }
-                                label='Tick, if parcel loosely packed!'
-                                name='isLooselyPacked'
-                                checked={ isLooselyPacked }
-                                onChange={ handleLooselyPackedClicked }
-                                //checked={isLooselyPacked}
-                             />
-                        </Form.Group>
 
-                        <Form.Group widths='equal' className='package'>
-                            <Form.Radio
-                                label='Tick, to confirm advise given about hazardous goods (e.g. perfumes)'
-                                onChange={handleHazardousGoods} handleIsLooselyPacked
-                                name='isContainedHazardousGoods'
+                        <p> Are the items loosely packed? </p>
+                            <input
+                                name="isLooselyPacked"
+                                type="checkbox"
+                                label="Are parcels loosely packed? "
+                                checked={this.state.isLooselyPacked}
+                                onChange={this.handleIsLooselyPacked}
                             />
-                        </Form.Group>
+
+                        <p> Advise given about hazardous goods? </p>
+                        <input
+                            name="isHazardousGoods"
+                            type="checkbox"
+                            label="Advise about hazardous Goods"
+                            checked={this.state.isHazardousGoods}
+                            onChange = { this.handleHazardousGoods}
+                        />
 
                         <Divider />
 
@@ -457,7 +465,6 @@ export class BookingsAndCollections extends Component {
                         <Button
                             content="Create a booking and collection"
                             className="red small"
-
                         />
 
                     </Form>
