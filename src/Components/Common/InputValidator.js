@@ -12,7 +12,9 @@ export default function InputValidator (customerName,
                                         city,
                                         specialInstructions,
                                         generalDescription,
-                                        pieceData) {
+                                        pieceData,
+                                        isLooselyPacked,
+                                        isHazardousGoods) {
 
     const validationErrors = {};
     let isFormValid = true;
@@ -54,6 +56,17 @@ export default function InputValidator (customerName,
             validationErrors["generalDescription"] = {key: _.uniqueId(), isGeneralDescriptionValid: false, message: "General Description not valid"};
             isFormValid = false;
         }
+
+        if(isLooselyPacked === false) {
+            validationErrors["isLooselyPacked"] = {key: _.uniqueId(), isIsLooselyPackedValid: false, message: "please select the checkbox"};
+            isFormValid = false;
+        }
+
+        if(isHazardousGoods === false) {
+            validationErrors["isHazardousGoods"] = {key: _.uniqueId(), isIsHazardousGoodsValid: false, message: "please select tick box"};
+            isFormValid = false;
+        }
+
 
         Promise.resolve()
             .then(()=> {

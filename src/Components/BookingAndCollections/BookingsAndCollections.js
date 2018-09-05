@@ -45,30 +45,32 @@ export class BookingsAndCollections extends Component {
 
 
     }
-
-
     handleHazardousGoods(event) {
-
+        const { errorHandler } = this.props;
         const target = event.target;
         const value = target.type == 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        });
-
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
     }
 
     handleIsLooselyPacked(event) {
-
+        const { errorHandler } = this.props;
         const target = event.target;
         const value = target.type == 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        });
-
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
     }
 
     handleCustomerNameChange(event, { name, value}) {
@@ -137,8 +139,6 @@ export class BookingsAndCollections extends Component {
             console.log(this.state.isLooselyPacked)
         );
 
-
-
     }
 
     handleCityChange(event,{name, value}) {
@@ -182,18 +182,15 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
-
-
-
     // If comming from handlePieceDataChange, we update the pieces first
     // then once we update the indivdiual pieces we then do validation on them
     handleFormValidation() {
         return new Promise(((resolve, reject) => {
 
-        // get all the properties from the state
+        // Get all the properties from the state
         const { customerName,houseNumber, street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
-                isContainedHazardousGoods, piecesData } = this.state;
+                piecesData, isHazardousGoods } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
             validateInputs(
@@ -204,7 +201,9 @@ export class BookingsAndCollections extends Component {
                            city,
                            specialInstructions,
                            generalDescription,
-                           piecesData)
+                           piecesData,
+                           isLooselyPacked,
+                           isHazardousGoods)
 
             // If valid the form
             // we are returned here from line 113 in InputValidator
@@ -442,7 +441,7 @@ export class BookingsAndCollections extends Component {
                             type="checkbox"
                             label="Advise about hazardous Goods"
                             checked={this.state.isHazardousGoods}
-                            onChange = { this.handleHazardousGoods}
+                            onChange = {this.handleHazardousGoods}
                         />
 
                         <Divider />
