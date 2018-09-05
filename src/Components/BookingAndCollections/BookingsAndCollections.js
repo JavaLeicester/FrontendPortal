@@ -456,7 +456,7 @@ export class BookingsAndCollections extends Component {
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
-                                label="Enter the Date"
+                                label="Enter the Booking Date"
                                 placeholder="DD/MM/YYYY"
                                 name="bookingDate"
                                 onChange={this.handleBookingDate}
@@ -466,7 +466,7 @@ export class BookingsAndCollections extends Component {
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
-                                label="Enter a time"
+                                label="Enter a Booking time"
                                 placeholder="use 24 hour time (MM/HH)"
                                 name="bookingTime"
                                 onChange={this.handleBookingTime}
