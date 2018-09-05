@@ -14,7 +14,9 @@ export default function InputValidator (customerName,
                                         generalDescription,
                                         pieceData,
                                         isLooselyPacked,
-                                        isHazardousGoods) {
+                                        isHazardousGoods,
+                                        bookingDate,
+                                        bookingTime) {
 
     const validationErrors = {};
     let isFormValid = true;
@@ -64,6 +66,25 @@ export default function InputValidator (customerName,
 
         if(isHazardousGoods === false) {
             validationErrors["isHazardousGoods"] = {key: _.uniqueId(), isIsHazardousGoodsValid: false, message: "please select tick box"};
+            isFormValid = false;
+        }
+
+        var result = bookingDate.split("/");
+        var day = result[0];
+        var month = result[1];
+        var year = result[2];
+
+        if (isEmpty(bookingDate) || (bookingDate.length !== 8 ) || (day.length !== 2 && isNaN(day)) || (month.length !== 2 || isNaN(month)) || (year.length !== 2 || isNaN(year))) {
+            validationErrors["bookingDate"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking date"};
+            isFormValid = false;
+        }
+
+        var bookTimeResult = bookingTime.split(":");
+        var hours = result[0];
+        var minutes = result[1];
+
+        if (isEmpty(bookingTime) || (bookingTime.length !== 5) || (isNaN(minutes)) || (isNaN(hours)) ) {
+            validationErrors["bookingTime"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking Time in the correct format"};
             isFormValid = false;
         }
 

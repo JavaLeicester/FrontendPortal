@@ -2,9 +2,9 @@ import _ from 'lodash';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
-import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
-import { bookingAndCollectionModel, NotificationData } from '../../domain/';
 import { validateInputs, ValidationError, CheckBox } from '../Common';
+import { bookingAndCollectionModel, NotificationData } from '../../domain/';
+import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
 
 export class BookingsAndCollections extends Component {
 
@@ -23,6 +23,8 @@ export class BookingsAndCollections extends Component {
             isGoing: false,
             isHazardousGoods: false,
             isLooselyPacked: false,
+            bookingDate: '',
+            bookingTime: ''
         };
 
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
@@ -42,6 +44,9 @@ export class BookingsAndCollections extends Component {
         this.handleSpecialDeliveryChange = this.handleSpecialDeliveryChange.bind(this);
 
         this.handleGeneralDescriptionChange = this.handleGeneralDescriptionChange.bind(this);
+
+        this.handleBookingDate = this.handleBookingDate.bind(this)
+        this.handleBookingTime = this.handleBookingTime.bind(this);
 
 
     }
@@ -72,6 +77,36 @@ export class BookingsAndCollections extends Component {
             .then()
             .catch(error => errorHandler(error));
     }
+
+    handleBookingTime(event,{name, value}){
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+
+    }
+
+    handleBookingDate(event, { name, value }) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
 
     handleCustomerNameChange(event, { name, value}) {
 
@@ -190,7 +225,7 @@ export class BookingsAndCollections extends Component {
         // Get all the properties from the state
         const { customerName,houseNumber, street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
-                piecesData, isHazardousGoods } = this.state;
+                piecesData, isHazardousGoods, bookingDate, bookingTime } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
             validateInputs(
@@ -203,7 +238,9 @@ export class BookingsAndCollections extends Component {
                            generalDescription,
                            piecesData,
                            isLooselyPacked,
-                           isHazardousGoods)
+                           isHazardousGoods,
+                           bookingDate,
+                           bookingTime)
 
             // If valid the form
             // we are returned here from line 113 in InputValidator
@@ -336,6 +373,7 @@ export class BookingsAndCollections extends Component {
             handleSpecialDeliveryChange,
             handleHazardousGoods,
             handleIsLooselyPacked,
+            handleBookingDate
         } = this;
 
         return(
@@ -417,6 +455,26 @@ export class BookingsAndCollections extends Component {
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
+                                control={Input}
+                                label="Enter the Booking Date"
+                                placeholder="DD/MM/YYYY"
+                                name="bookingDate"
+                                onChange={this.handleBookingDate}
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                label="Enter a Booking time"
+                                placeholder="use 24 hour time (MM/HH)"
+                                name="bookingTime"
+                                onChange={this.handleBookingTime}
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
                                 control={TextArea}
                                 label="General description of Goods"
                                 placeholder="General description of Goods"
@@ -425,15 +483,14 @@ export class BookingsAndCollections extends Component {
                             />
                         </Form.Group>
 
-
                         <p> Are the items loosely packed? </p>
-                            <input
-                                name="isLooselyPacked"
-                                type="checkbox"
-                                label="Are parcels loosely packed? "
-                                checked={this.state.isLooselyPacked}
-                                onChange={this.handleIsLooselyPacked}
-                            />
+                        <input
+                            name="isLooselyPacked"
+                            type="checkbox"
+                            label="Are parcels loosely packed? "
+                            checked={this.state.isLooselyPacked}
+                            onChange={this.handleIsLooselyPacked}
+                        />
 
                         <p> Advise given about hazardous goods? </p>
                         <input
@@ -441,7 +498,7 @@ export class BookingsAndCollections extends Component {
                             type="checkbox"
                             label="Advise about hazardous Goods"
                             checked={this.state.isHazardousGoods}
-                            onChange = {this.handleHazardousGoods}
+                            onChange={this.handleHazardousGoods}
                         />
 
                         <Divider />
