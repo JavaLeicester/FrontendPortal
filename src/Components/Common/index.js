@@ -1,4 +1,12 @@
+import CheckBox from './CheckBox';
+import Notification from './Notification';
 import validateInputs from './InputValidator';
+import ValidationError from './ValidationError';
+
+
 export {
-    validateInputs
+    Notification,
+    validateInputs,
+    ValidationError,
+    CheckBox
 };

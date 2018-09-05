@@ -12,7 +12,9 @@ export default function InputValidator (customerName,
                                         city,
                                         specialInstructions,
                                         generalDescription,
-                                        pieceData) {
+                                        pieceData,
+                                        isLooselyPacked,
+                                        isHazardousGoods) {
 
     const validationErrors = {};
     let isFormValid = true;
@@ -41,19 +43,30 @@ export default function InputValidator (customerName,
         }
 
         if(isEmpty(city)) {
-            validationErrors["City"] = {key: _.uniqueId(), isCityValid: false, message: "City not valid"};
+            validationErrors["city"] = {key: _.uniqueId(), isCityValid: false, message: "City not valid"};
             isFormValid = false;
         }
 
         if(isEmpty(specialInstructions)) {
-            validationErrors["specialInstructions"] = {key: _.uniqueId(), isCityValid: false, message: "Special instructions not valid"};
+            validationErrors["specialInstructions"] = {key: _.uniqueId(), isSpecialInstructionValid: false, message: "Special instructions not valid"};
             isFormValid = false;
         }
 
         if(isEmpty(generalDescription)) {
-            validationErrors["generalDescription"] = {key: _.uniqueId(), isGeneralDescription: false, message: "General Description not valid"};
+            validationErrors["generalDescription"] = {key: _.uniqueId(), isGeneralDescriptionValid: false, message: "General Description not valid"};
             isFormValid = false;
         }
+
+        if(isLooselyPacked === false) {
+            validationErrors["isLooselyPacked"] = {key: _.uniqueId(), isIsLooselyPackedValid: false, message: "please select the checkbox"};
+            isFormValid = false;
+        }
+
+        if(isHazardousGoods === false) {
+            validationErrors["isHazardousGoods"] = {key: _.uniqueId(), isIsHazardousGoodsValid: false, message: "please select tick box"};
+            isFormValid = false;
+        }
+
 
         Promise.resolve()
             .then(()=> {
@@ -107,7 +120,7 @@ export default function InputValidator (customerName,
             // When you have checked each field individually
             // Then we must inspect the boolean value
             .then(() => {
-                if(!isFormValid) {
+                if (!isFormValid) {
                     return reject({ validationErrors, isFormValid, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}})
                 }
                 return resolve({
@@ -116,9 +129,9 @@ export default function InputValidator (customerName,
                     data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}
 
                 })
-            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
 
-            });
+            })
+            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
 
 
     }); // End first promise

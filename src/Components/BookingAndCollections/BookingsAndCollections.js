@@ -2,16 +2,15 @@ import _ from 'lodash';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
-import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button } from 'semantic-ui-react';
-import { bookingAndCollectionModel } from '../../domain/';
-import { validateInputs } from '../Common';
+import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
+import { bookingAndCollectionModel, NotificationData } from '../../domain/';
+import { validateInputs, ValidationError, CheckBox } from '../Common';
 
 export class BookingsAndCollections extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isLooselyPacked: [{key: "yes", text: "yes"}, {key: "no", text: "no"}],
             piecesData:[new bookingAndCollectionModel()],
             customerName:'',
             houseNumber: '',
@@ -20,10 +19,14 @@ export class BookingsAndCollections extends Component {
             city: '',
             specialInstructions: '',
             generalDescription: '',
-            isLooselyPacked: '',
-            isContainedHazardousGoods: '',
-            validationResult:''
+            validationResult: {},
+            isGoing: false,
+            isHazardousGoods: false,
+            isLooselyPacked: false,
         };
+
+        this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
+        this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
 
         this.handleDuplicatePiece = this.handleDuplicatePiece.bind(this);
         this.handleDeletePiece = this.handleDeletePiece.bind(this);
@@ -37,104 +40,185 @@ export class BookingsAndCollections extends Component {
         this.handlePostCodeChange = this.handlePostCodeChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleSpecialDeliveryChange = this.handleSpecialDeliveryChange.bind(this);
-        this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
-        this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
+
+        this.handleGeneralDescriptionChange = this.handleGeneralDescriptionChange.bind(this);
+
 
     }
+    handleHazardousGoods(event) {
+        const { errorHandler } = this.props;
+        const target = event.target;
+        const value = target.type == 'checkbox' ? target.checked : target.value;
+        const name = target.name;
 
-    handleCustomerNameChange(event, {name, value }) {
-
-        event.preventDefault();
-        this.setState({[name]: value });
-        this.handleFormValidation()
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
             .then()
             .catch(error => errorHandler(error));
-
     }
 
-    handleHouseNumberChange(event, {name, value }) {
+    handleIsLooselyPacked(event) {
+        const { errorHandler } = this.props;
+        const target = event.target;
+        const value = target.type == 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+    handleCustomerNameChange(event, { name, value}) {
 
         event.preventDefault();
-        this.setState({[name]: value });
+
+        // errorHandler points to the parent class App in particular
+        // the method handleError in the App.js class
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({ [name]: value }))
+        .then(() => {
+            return this.handleFormValidation();
+        })
+        .then() //works without the then()
+        .catch(error => errorHandler(error));
+    }
+
+    handleHouseNumberChange(event, { name, value }) {
+
+        event.preventDefault();
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({ [name] : value})) // we put in a promise.resolve as we want to do this before validating form
+        .then(() => {
+            return this.handleFormValidation();
+        })
+            .then()
+            .catch(error => errorHandler(error));
 
     }
 
     handleStreetChange(event, {name, value }) {
 
         event.preventDefault();
-        this.setState({[name]: value });
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
 
     }
 
-    handlePostCodeChange(event,{name, value}){
+    handlePostCodeChange(event,{name, value}) {
 
         event.preventDefault();
-        this.setState({[name]: value });
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
 
     }
 
-    handleCityChange(event,{name, value}){
+    handleLooselyPackedClicked(event,{name, value}) {
+        console.log("The name value is ...");
+        console.log(name);
+        console.log(this.state.isLooselyPacked);
+
+        Promise.resolve(this.setState({
+            isLooselyPacked : !this.state.isLooselyPacked
+        })
+        ).then(
+            console.log(this.state.isLooselyPacked)
+        );
+
+    }
+
+    handleCityChange(event,{name, value}) {
 
         event.preventDefault();
-        this.setState({[name]: value});
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value}))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
 
     }
 
     handleSpecialDeliveryChange(event,{name,value}) {
 
+        console.log(this.props);
+
         event.preventDefault();
-        this.setState({[name]: value});
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value}))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
     }
 
     handleGeneralDescriptionChange(event,{name,value}) {
 
+        console.log(this.props);
+
         event.preventDefault();
-        this.setState({[name]: value});
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
     }
-
-    handleHazardousGoods(event, {name, value}) {
-        event.preventDefault();
-        this.setState({[name]: value});
-
-    }
-
-    handleIsLooselyPacked(event, {name, value}) {
-        event.preventDefault();
-        this.setState({[name]: value});
-    }
-
 
     // If comming from handlePieceDataChange, we update the pieces first
     // then once we update the indivdiual pieces we then do validation on them
     handleFormValidation() {
         return new Promise(((resolve, reject) => {
 
-        // get all the properties from the state
+        // Get all the properties from the state
         const { customerName,houseNumber, street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
-                isContainedHazardousGoods, piecesData } = this.state;
+                piecesData, isHazardousGoods } = this.state;
 
-        // Pass all of the properties from the state into the InputValidator function
-        validateInputs(
-                       customerName,
-                       houseNumber,
-                       street,
-                       postcode,
-                       city,
-                       specialInstructions,
-                       generalDescription,
-                       piecesData)
-            .then((validationResult) => {// If valid the form
+            // Pass all of the properties from the state into the InputValidator function
+            validateInputs(
+                           customerName,
+                           houseNumber,
+                           street,
+                           postcode,
+                           city,
+                           specialInstructions,
+                           generalDescription,
+                           piecesData,
+                           isLooselyPacked,
+                           isHazardousGoods)
+
+            // If valid the form
+            // we are returned here from line 113 in InputValidator
+            .then((validationResult) => {
                 this.setState({validationResult});
                 return resolve(validationResult);
-                console.log("The form is valid");
-                console.log(validationResult);
             })
 
             // If not valid the form
             .catch(({validationErrors }) => {
+                const { validationResult } = this.state;
+                validationResult.validationErrors = validationErrors;
+                this.setState({ validationResult });
+                return reject(new NotificationData('red','ValidationError', 'Error in required fields'));
 
-                console.log(JSON.stringify(validationErrors, null, 4));
             });
 
         }))
@@ -160,6 +244,11 @@ export class BookingsAndCollections extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        const { errorHandler } = this.props;
+        this.handleFormValidation()
+            .then(({data}) => alert("Success happened"))
+            .catch(error => errorHandler(error));
+
     }
 
     handleDuplicatePiece(id, weight, length, width, height) {
@@ -207,6 +296,7 @@ export class BookingsAndCollections extends Component {
     // up all the relevant properties
     handlePieceDataChange(id, nameOfField, valueOfField) {
 
+        const { errorHandler } = this.props;
         // Get the list of pieces from the State
         const { piecesData } = this.state;
 
@@ -219,23 +309,18 @@ export class BookingsAndCollections extends Component {
                 this.setState({piecesDatas:piecesData });
                 return Promise.resolve("updated successfully!");
             })
-
             // Then handle the form validation
             .then(() => this.handleFormValidation())
-
-            // Test function
-            .then (value => {
-                alert("AFTER THE FORM VALIDATION CALL");
-                console.log("INSIDE THEN: " + value);
-                console.log("Array List is here: ");
-                console.log(this.state.piecesData);
-
-             })
+            .catch(error => {
+                errorHandler(error);
+            });
     }
 
     render() {
 
-        var { isLooselyPacked, piecesData } = this.state;
+        var { piecesData, validationResult } = this.state;
+
+        const { validationErrors } = validationResult;
 
         // Get the functions from this.state
         const {
@@ -250,13 +335,13 @@ export class BookingsAndCollections extends Component {
             handleCityChange,
             handleSpecialDeliveryChange,
             handleHazardousGoods,
-            handleIsLooselyPacked
+            handleIsLooselyPacked,
         } = this;
 
         return(
-            <Grid className='one column center aligned blue' container>
+            <Grid className='one column center aligned blue' class="form" container>
                 <Grid.Column width={12}>
-                    <Form onSubmit={this.handleSubmit} className="blue">
+                    <Form onSubmit={this.handleSubmit} class="form">
                         <Segment className='raised small'>
                             Collection Call
                         </Segment>
@@ -308,16 +393,16 @@ export class BookingsAndCollections extends Component {
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
-                                name='City'
-                                placeholder='City'
-                                label="City"
-                                onChange={ handleCityChange }
+                                name='city'
+                                placeholder='city'
+                                label="city"
+                                onChange={handleCityChange}
                             />
                         </Form.Group>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
-                                control={ TextArea }
+                                control={TextArea}
                                 name="specialInstructions"
                                 placeholder="Special Instructions For Delivery"
                                 label="Special instructions for Delivery"
@@ -332,7 +417,7 @@ export class BookingsAndCollections extends Component {
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
-                                control={ TextArea }
+                                control={TextArea}
                                 label="General description of Goods"
                                 placeholder="General description of Goods"
                                 onChange={handleGeneralDescriptionChange}
@@ -340,21 +425,24 @@ export class BookingsAndCollections extends Component {
                             />
                         </Form.Group>
 
-                        <Form.Group widths='equal' className='package'>
-                            <Form.Radio
-                                label='Tick, if parcel loosely packed!'
-                                onChange={handleIsLooselyPacked}
-                                name='isLooselyPacked'
-                            />
-                        </Form.Group>
 
-                        <Form.Group widths='equal' className='package'>
-                            <Form.Radio
-                                label='Tick, to confirm advise given about hazardous goods (e.g. perfumes)'
-                                onChange={handleHazardousGoods} handleIsLooselyPacked
-                                name='isContainedHazardousGoods'
+                        <p> Are the items loosely packed? </p>
+                            <input
+                                name="isLooselyPacked"
+                                type="checkbox"
+                                label="Are parcels loosely packed? "
+                                checked={this.state.isLooselyPacked}
+                                onChange={this.handleIsLooselyPacked}
                             />
-                        </Form.Group>
+
+                        <p> Advise given about hazardous goods? </p>
+                        <input
+                            name="isHazardousGoods"
+                            type="checkbox"
+                            label="Advise about hazardous Goods"
+                            checked={this.state.isHazardousGoods}
+                            onChange = {this.handleHazardousGoods}
+                        />
 
                         <Divider />
 
@@ -370,6 +458,8 @@ export class BookingsAndCollections extends Component {
                                 </Grid.Row>);
                             })
                         }
+
+                            <ValidationError validationErrors={validationErrors} />
 
                         <Button
                             content="Create a booking and collection"
