@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {BookingList} from "../BookingNoteAndReceipt/BookingList";
+import {BookingList} from "../BookingList/BookingList";
 import {BookingsAndCollections} from "../BookingAndCollections/BookingsAndCollections";
 
 export default function Wrapper(props) {
