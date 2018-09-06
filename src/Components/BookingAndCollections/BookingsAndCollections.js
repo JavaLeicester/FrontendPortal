@@ -6,6 +6,9 @@ import { validateInputs, ValidationError, CheckBox } from '../Common';
 import { bookingAndCollectionModel, NotificationData } from '../../domain/';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
 
+import { addBooking } from "../ApiClient/ApiClient";
+import Booking from "../../domain/Booking";
+
 export class BookingsAndCollections extends Component {
 
     constructor(props) {
@@ -20,7 +23,6 @@ export class BookingsAndCollections extends Component {
             specialInstructions: '',
             generalDescription: '',
             validationResult: {},
-            isGoing: false,
             isHazardousGoods: false,
             isLooselyPacked: false,
             bookingDate: '',
@@ -280,10 +282,30 @@ export class BookingsAndCollections extends Component {
     }
 
     handleSubmit(event) {
+
         event.preventDefault();
-        const { errorHandler } = this.props;
+        const { errorHandler, history } = this.props;
+
+        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, piecesData } = this.state;
+        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, piecesData);
+
         this.handleFormValidation()
-            .then(({data}) => alert("Success happened"))
+            .then(function(result) {
+
+                addBooking(newBooking)
+                    .then(function ({result}) {
+
+                        history.push('/bookingList');
+                    })
+                    .catch(function(error) {
+
+                        history.push('/bookingList');
+
+                        errorHandler(error)
+
+                    });
+
+            })
             .catch(error => errorHandler(error));
 
     }

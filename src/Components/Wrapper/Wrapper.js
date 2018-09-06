@@ -1,6 +1,6 @@
 import React from 'react';
-import {Browser as Router, Switch, Route } from 'react-router-dom';
-import {BookingNoteAndReceipt} from "../BookingNoteAndReceipt/BookingNoteAndReceipt";
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {BookingList} from "../BookingNoteAndReceipt/BookingList";
 import {BookingsAndCollections} from "../BookingAndCollections/BookingsAndCollections";
 
 export default function Wrapper(props) {
@@ -10,14 +10,14 @@ export default function Wrapper(props) {
         <Router>
             <Switch>
                 <Route
-                    exact
-                    path="/"
-                    render={props => <BookingsAndCollections { ...props} errorHandler={errorHandler}/> }
+                  exact
+                  path="/"
+                  render={props => <BookingsAndCollections { ...props} errorHandler={errorHandler}/> }
                 />
 
                 <Route
-                    path="/bookingReceipt"
-                    component={BookingNoteAndReceipt}
+                  path="/bookingList"
+                  component={BookingList}
                 />
             </Switch>
         </Router>
