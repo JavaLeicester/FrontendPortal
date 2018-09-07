@@ -9,6 +9,9 @@ import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, 
 import { addBooking } from "../ApiClient/ApiClient";
 import Booking from "../../domain/Booking";
 
+import moment from 'moment';
+import ReactCalendar from "../Common/ReactCalendar";
+
 export class BookingsAndCollections extends Component {
 
     constructor(props) {
@@ -27,6 +30,8 @@ export class BookingsAndCollections extends Component {
             isLooselyPacked: false,
             bookingDate: '',
             bookingTime: ''
+
+
         };
 
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
@@ -49,6 +54,8 @@ export class BookingsAndCollections extends Component {
 
         this.handleBookingDate = this.handleBookingDate.bind(this)
         this.handleBookingTime = this.handleBookingTime.bind(this);
+
+        this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
 
 
     }
@@ -87,6 +94,21 @@ export class BookingsAndCollections extends Component {
         const { errorHandler } = this.props;
 
         return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+
+    }
+
+    handleBookingDateTest(date) {
+
+        const { errorHandler } = this.props;
+
+        date = moment(date).format('DD/MM/YYYY');
+
+        return Promise.resolve(this.setState({'bookingDate': date}))
             .then(() => {
                 return this.handleFormValidation();
             })
@@ -377,7 +399,7 @@ export class BookingsAndCollections extends Component {
 
     render() {
 
-        var { piecesData, validationResult } = this.state;
+        var { piecesData, validationResult, bookingDate } = this.state;
 
         const { validationErrors } = validationResult;
 
@@ -395,7 +417,8 @@ export class BookingsAndCollections extends Component {
             handleSpecialDeliveryChange,
             handleHazardousGoods,
             handleIsLooselyPacked,
-            handleBookingDate
+            handleBookingDate,
+            handleBookingDateTest
         } = this;
 
         return(
@@ -475,6 +498,13 @@ export class BookingsAndCollections extends Component {
 
                         <Header> Parcel Information </Header>
 
+                        <Form.Group widths='equal' className='package' >
+                            <ReactCalendar
+                                { ...bookingDate}
+                                onChange ={handleBookingDateTest}
+                            />
+                        </Form.Group>
+
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
@@ -482,13 +512,25 @@ export class BookingsAndCollections extends Component {
                                 placeholder="DD/MM/YYYY"
                                 name="bookingDate"
                                 onChange={this.handleBookingDate}
+                                value = { this.state.bookingDate }
                             />
                         </Form.Group>
 
+
+                        <Header> Enter Booking Time range: </Header>
+
                         <Form.Group widths='equal' className='package'>
-                            <Form.Field
+                            <Form.Input
                                 control={Input}
-                                label="Enter a Booking time"
+                                label="Enter a Booking time from: "
+                                placeholder="use 24 hour time (MM/HH)"
+                                name="bookingTime"
+                                onChange={this.handleBookingTime}
+                            />
+                            <Form.Input
+                                fluid
+                                control={Input}
+                                label="Enter a Booking time to: "
                                 placeholder="use 24 hour time (MM/HH)"
                                 name="bookingTime"
                                 onChange={this.handleBookingTime}
