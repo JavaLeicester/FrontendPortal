@@ -29,9 +29,8 @@ export class BookingsAndCollections extends Component {
             isHazardousGoods: false,
             isLooselyPacked: false,
             bookingDate: '',
-            bookingTime: ''
-
-
+            bookingTime: '',
+            bookingTimeFrom: ''
         };
 
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
@@ -53,7 +52,10 @@ export class BookingsAndCollections extends Component {
         this.handleGeneralDescriptionChange = this.handleGeneralDescriptionChange.bind(this);
 
         this.handleBookingDate = this.handleBookingDate.bind(this)
+
+        this.handleBookingTimeFrom = this.handleBookingTimeFrom.bind(this);
         this.handleBookingTime = this.handleBookingTime.bind(this);
+
 
         this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
 
@@ -96,6 +98,21 @@ export class BookingsAndCollections extends Component {
         return Promise.resolve(this.setState({ [name]: value }))
             .then(() => {
                 return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+
+    }
+
+    handleBookingTimeFrom(event,{name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                    return this.handleFormValidation();
             })
             .then()
             .catch(error => errorHandler(error));
@@ -249,7 +266,7 @@ export class BookingsAndCollections extends Component {
         // Get all the properties from the state
         const { customerName,houseNumber, street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
-                piecesData, isHazardousGoods, bookingDate, bookingTime } = this.state;
+                piecesData, isHazardousGoods, bookingDate, bookingTime, bookingTimeFrom } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
             validateInputs(
@@ -264,7 +281,8 @@ export class BookingsAndCollections extends Component {
                            isLooselyPacked,
                            isHazardousGoods,
                            bookingDate,
-                           bookingTime)
+                           bookingTime,
+                           bookingTimeFrom)
 
             // If valid the form
             // we are returned here from line 113 in InputValidator
@@ -308,8 +326,11 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, piecesData } = this.state;
-        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, piecesData);
+        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData } = this.state;
+        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData);
+
+        //alert(JSON.stringify(this.state, null,4));
+        console.log(newBooking);
 
         this.handleFormValidation()
             .then(function(result) {
@@ -418,7 +439,8 @@ export class BookingsAndCollections extends Component {
             handleHazardousGoods,
             handleIsLooselyPacked,
             handleBookingDate,
-            handleBookingDateTest
+            handleBookingDateTest,
+            handleBookingTimeFrom
         } = this;
 
         return(
@@ -532,8 +554,8 @@ export class BookingsAndCollections extends Component {
                                 control={Input}
                                 label="Enter a Booking time to: "
                                 placeholder="use 24 hour time (MM/HH)"
-                                name="bookingTime"
-                                onChange={this.handleBookingTime}
+                                name="bookingTimeFrom"
+                                onChange={this.handleBookingTimeFrom}
                             />
                         </Form.Group>
 

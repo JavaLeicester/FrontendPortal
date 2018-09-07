@@ -16,7 +16,8 @@ export default function InputValidator (customerName,
                                         isLooselyPacked,
                                         isHazardousGoods,
                                         bookingDate,
-                                        bookingTime) {
+                                        bookingTime,
+                                        bookingTimeFrom) {
 
     const validationErrors = {};
     let isFormValid = true;
@@ -80,14 +81,22 @@ export default function InputValidator (customerName,
         }
 
         var bookTimeResult = bookingTime.split(":");
-        var hours = result[0];
-        var minutes = result[1];
+        var hours = bookTimeResult[0];
+        var minutes = bookTimeResult[1];
 
         if (isEmpty(bookingTime) || (bookingTime.length !== 5) || (isNaN(minutes)) || (isNaN(hours)) ) {
-            validationErrors["bookingTime"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking Time in the correct format"};
+            validationErrors["bookingTime"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking Time To in the correct format"};
             isFormValid = false;
         }
 
+        var bookingTimeFromResult = bookingTimeFrom.split(":");
+        var hours = bookingTimeFromResult[0];
+        var minutes = bookingTimeFromResult[1];
+
+        if (isEmpty(bookingTimeFrom) || (bookingTimeFrom.length !== 5) || (isNaN(minutes)) || (isNaN(hours)) ) {
+            validationErrors["bookingTimeFrom"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking Time From in the correct format"};
+            isFormValid = false;
+        }
 
         Promise.resolve()
             .then(()=> {
