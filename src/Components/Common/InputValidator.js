@@ -74,7 +74,7 @@ export default function InputValidator (customerName,
         var month = result[1];
         var year = result[2];
 
-        if (isEmpty(bookingDate) || (bookingDate.length !== 8 ) || (day.length !== 2 && isNaN(day)) || (month.length !== 2 || isNaN(month)) || (year.length !== 2 || isNaN(year))) {
+        if (isEmpty(bookingDate) || (bookingDate.length !== 10 ) || (day.length !== 2 && isNaN(day)) || (month.length !== 2 || isNaN(month)) || (year.length !== 4 || isNaN(year))) {
             validationErrors["bookingDate"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking date"};
             isFormValid = false;
         }
