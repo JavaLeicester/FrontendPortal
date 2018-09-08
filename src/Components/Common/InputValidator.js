@@ -18,7 +18,9 @@ export default function InputValidator (customerName,
                                         isHazardousGoods,
                                         bookingDate,
                                         bookingTime,
-                                        bookingTimeFrom
+                                        bookingTimeFrom,
+                                        product,
+                                        type
                                         ) {
 
     const validationErrors = {};
@@ -106,6 +108,16 @@ export default function InputValidator (customerName,
             isFormValid = false;
         }
 
+        if(isEmpty(type)) {
+            validationErrors["type"] = {key: _.uniqueId(), isSpecialInstructionValid: false, message: "select a type"};
+            isFormValid = false;
+        }
+
+        if(isEmpty(product)) {
+            validationErrors["product"] = {key: _.uniqueId(), isSpecialInstructionValid: false, message: "select a product"};
+            isFormValid = false;
+        }
+
         Promise.resolve()
             .then(()=> {
                return  _.forEach(pieceData, q => {
@@ -159,17 +171,17 @@ export default function InputValidator (customerName,
             // Then we must inspect the boolean value
             .then(() => {
                 if (!isFormValid) {
-                    return reject({ validationErrors, isFormValid, data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}})
+                    return reject({ validationErrors, isFormValid, data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData, bookingTimeFrom, bookingTime, bookingDate, type, product }})
                 }
                 return resolve({
                     validationErrors,
                     isFormValid,
-                    data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}
+                    data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData, bookingTimeFrom, bookingTime, bookingDate, type, product}
 
                 })
 
             })
-            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
+            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData, bookingTimeFrom, bookingTime, bookingDate, type, product }}));
 
 
     }); // End first promise

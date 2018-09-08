@@ -32,6 +32,8 @@ export class BookingsAndCollections extends Component {
             bookingDate: '',
             bookingTime: '',
             bookingTimeFrom: '',
+            type:"",
+            product:"",
             typeOptions: [
                 {text: "air", value: "air"},
                 {text: "sea", value: "sea"},
@@ -70,9 +72,11 @@ export class BookingsAndCollections extends Component {
         this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
 
         this.handleTypeChange = this.handleTypeChange.bind(this);
-
+        this.handleProductChange = this.handleProductChange.bind(this);
 
     }
+
+
     handleHazardousGoods(event) {
         const { errorHandler } = this.props;
         const target = event.target;
@@ -276,9 +280,12 @@ export class BookingsAndCollections extends Component {
         return new Promise(((resolve, reject) => {
 
         // Get all the properties from the state
-        const { customerName, contactNumber, houseNumber, street, postcode, city,
+        const { customerName, contactNumber, houseNumber,
+                street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
-                piecesData, isHazardousGoods, bookingDate, bookingTime, bookingTimeFrom } = this.state;
+                piecesData, isHazardousGoods, bookingDate,
+                bookingTime, bookingTimeFrom, product, type
+            } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
             validateInputs(
@@ -295,7 +302,9 @@ export class BookingsAndCollections extends Component {
                            isHazardousGoods,
                            bookingDate,
                            bookingTime,
-                           bookingTimeFrom)
+                           bookingTimeFrom,
+                           product,
+                           type)
 
             // If valid the form
             // we are returned here from line 113 in InputValidator
@@ -342,8 +351,8 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData } = this.state;
-        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData);
+        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type } = this.state;
+        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type);
 
         //alert(JSON.stringify(this.state, null,4));
         console.log(newBooking);
@@ -449,7 +458,31 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
+
+    /*
+
+     handleSpecialDeliveryChange(event,{name,value}) {
+
+        console.log(this.props);
+
+        event.preventDefault();
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value}))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+     */
+
     handleTypeChange(event, {name, value}) {
+
+        alert(name);
+        alert(value);
+
+        this.setState({[name]: value});
 
         if (value === 'air') {
 
@@ -497,6 +530,18 @@ export class BookingsAndCollections extends Component {
             this.setState({productOptions: packagingOptions});
         }
 
+    }
+
+    handleProductChange (event, {name, value }) {
+
+        event.preventDefault();
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value}))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
 
     }
 
@@ -524,7 +569,8 @@ export class BookingsAndCollections extends Component {
             handleBookingDateTest,
             handleBookingTimeFrom,
             handleContactNumber,
-            handleTypeChange
+            handleTypeChange,
+            handleProductChange
         } = this;
 
         return(
@@ -620,7 +666,7 @@ export class BookingsAndCollections extends Component {
                                 name="type"
                                 placeholder="Select a type"
                                 selection
-                                onChange={handleTypeChange}
+                                onChange={ handleTypeChange }
                                 options={ typeOptions }
                             />
                         </Form.Group>
@@ -628,9 +674,11 @@ export class BookingsAndCollections extends Component {
                         <Form.Group widths='equal' className='package'>
                             <Form.Dropdown
                                 label="Select a product"
+                                name="product"
                                 placeholder="Select a product"
                                 selection
                                 options={ productOptions }
+                                onChange={ handleProductChange }
 
                             />
                         </Form.Group>
