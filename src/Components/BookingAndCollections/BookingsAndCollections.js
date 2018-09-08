@@ -19,6 +19,7 @@ export class BookingsAndCollections extends Component {
         this.state = {
             piecesData:[new bookingAndCollectionModel()],
             customerName:'',
+            contactNumber: '',
             houseNumber: '',
             street: '',
             postcode: '',
@@ -264,13 +265,14 @@ export class BookingsAndCollections extends Component {
         return new Promise(((resolve, reject) => {
 
         // Get all the properties from the state
-        const { customerName,houseNumber, street, postcode, city,
+        const { customerName, contactNumber, houseNumber, street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
                 piecesData, isHazardousGoods, bookingDate, bookingTime, bookingTimeFrom } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
             validateInputs(
                            customerName,
+                           contactNumber,
                            houseNumber,
                            street,
                            postcode,
@@ -418,6 +420,20 @@ export class BookingsAndCollections extends Component {
             });
     }
 
+    handleContactNumber(event, {name,value}) {
+
+        console.log(this.props);
+
+        event.preventDefault();
+        const { errorHandler } = this.props;
+        return Promise.resolve(this.setState({[name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
     render() {
 
         var { piecesData, validationResult, bookingDate } = this.state;
@@ -440,7 +456,8 @@ export class BookingsAndCollections extends Component {
             handleIsLooselyPacked,
             handleBookingDate,
             handleBookingDateTest,
-            handleBookingTimeFrom
+            handleBookingTimeFrom,
+            handleContactNumber
         } = this;
 
         return(
@@ -465,8 +482,15 @@ export class BookingsAndCollections extends Component {
                             />
                         </Form.Group>
 
-                        <>
-
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name='contactNumber'
+                                placeholder='Contact Number'
+                                label='Contact Number'
+                                onChange={handleContactNumber}
+                            />
+                        </Form.Group>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
