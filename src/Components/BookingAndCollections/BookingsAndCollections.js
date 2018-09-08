@@ -465,6 +465,9 @@ export class BookingsAndCollections extends Component {
                             />
                         </Form.Group>
 
+                        <>
+
+
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
