@@ -6,6 +6,7 @@ const { isEmpty } = validatorErrors;
 // HandlePieceChange => this means that we validate after we update the form
 // This method gets invoked after each modification of the text input box
 export default function InputValidator (customerName,
+                                        contactNumber,
                                         houseNumber,
                                         street,
                                         postcode,
@@ -17,7 +18,8 @@ export default function InputValidator (customerName,
                                         isHazardousGoods,
                                         bookingDate,
                                         bookingTime,
-                                        bookingTimeFrom) {
+                                        bookingTimeFrom
+                                        ) {
 
     const validationErrors = {};
     let isFormValid = true;
@@ -27,6 +29,12 @@ export default function InputValidator (customerName,
         if (isEmpty(customerName)) {
 
             validationErrors['customerName'] = {key: _.uniqueId(), isCustomerNameValid: false, message: "From Customer Name should be valid"};
+            isFormValid = false;
+        }
+
+        if (isEmpty(contactNumber)) {
+
+            validationErrors['contactNumber'] = {key: _.uniqueId(), isContactNumberValid: false, message: "From contact number should be valid"};
             isFormValid = false;
         }
 
@@ -151,17 +159,17 @@ export default function InputValidator (customerName,
             // Then we must inspect the boolean value
             .then(() => {
                 if (!isFormValid) {
-                    return reject({ validationErrors, isFormValid, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}})
+                    return reject({ validationErrors, isFormValid, data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}})
                 }
                 return resolve({
                     validationErrors,
                     isFormValid,
-                    data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}
+                    data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData}
 
                 })
 
             })
-            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
+            .catch(() => reject({validationErrors, isFormValid: false, data: {customerName, contactNumber, houseNumber, street, postcode, city, specialInstructions, generalDescription, pieceData} }));
 
 
     }); // End first promise
