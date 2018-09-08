@@ -1,8 +1,35 @@
 import './Piece.css';
 import React from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Dropdown, Header } from 'semantic-ui-react';
 
 export class Piece extends React.Component {
+
+    pieceType=[
+        {
+          text:"carton",
+          value:"carton"
+        },
+        {
+          text:"Suit case",
+          value:"suitCase"
+        },
+        {
+          text:"Barrel",
+          value:"barrel"
+        },
+        {
+          text:"Loose Items",
+          value:'looseItems'
+        },
+        {
+          text: "TV",
+          value: 'tv'
+        },
+        {
+          text:"Fragile Item",
+          value:"fragileItem"
+        }
+    ]
 
     constructor(props) {
         super(props);
@@ -29,7 +56,7 @@ export class Piece extends React.Component {
 
         return(
 
-            <Form.Group widths='equal'>
+            <Form.Group widths=''>
                 <Form.Input
                     name='weight'
                     placeholder='weight (kgs)'
@@ -55,6 +82,15 @@ export class Piece extends React.Component {
                     onChange={onUpdate}
                 />
 
+                <Form.Dropdown
+                        name="pieceType"
+                        placeholder='Select a piece Type'
+                        fluid selection
+                        options={this.pieceType}
+                        onChange={onUpdate}
+                    />
+
+
                 <Button
                     content="Add"
                     className="blue large"
@@ -74,6 +110,8 @@ export class Piece extends React.Component {
                 />
 
             </Form.Group>
+
+
 
         );
     }
