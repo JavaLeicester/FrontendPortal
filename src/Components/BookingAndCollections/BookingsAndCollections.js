@@ -57,7 +57,7 @@ export class BookingsAndCollections extends Component {
         this.handleBookingTimeFrom = this.handleBookingTimeFrom.bind(this);
         this.handleBookingTime = this.handleBookingTime.bind(this);
 
-
+        this.handleContactNumber = this.handleContactNumber.bind(this);
         this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
 
 
@@ -289,6 +289,9 @@ export class BookingsAndCollections extends Component {
             // If valid the form
             // we are returned here from line 113 in InputValidator
             .then((validationResult) => {
+
+                alert(this.state);
+
                 this.setState({validationResult});
                 return resolve(validationResult);
             })
@@ -333,6 +336,7 @@ export class BookingsAndCollections extends Component {
 
         //alert(JSON.stringify(this.state, null,4));
         console.log(newBooking);
+        alert(JSON.stringify(newBooking, null, 4))
 
         this.handleFormValidation()
             .then(function(result) {
