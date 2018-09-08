@@ -4,7 +4,7 @@ import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
 import { validateInputs, ValidationError, CheckBox } from '../Common';
 import { bookingAndCollectionModel, NotificationData } from '../../domain/';
-import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio } from 'semantic-ui-react';
+import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio, Dropdown } from 'semantic-ui-react';
 
 import { addBooking } from "../ApiClient/ApiClient";
 import Booking from "../../domain/Booking";
@@ -31,8 +31,17 @@ export class BookingsAndCollections extends Component {
             isLooselyPacked: false,
             bookingDate: '',
             bookingTime: '',
-            bookingTimeFrom: ''
+            bookingTimeFrom: '',
+            typeOptions: [
+                {text: "air", value: "air"},
+                {text: "sea", value: "sea"},
+                {text: "courier", value: "courier"},
+                {text: "packaging", value: "packaging"}
+            ],
+            productOptions: []
+
         };
+
 
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
         this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
@@ -59,6 +68,8 @@ export class BookingsAndCollections extends Component {
 
         this.handleContactNumber = this.handleContactNumber.bind(this);
         this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
+
+        this.handleTypeChange = this.handleTypeChange.bind(this);
 
 
     }
@@ -438,9 +449,60 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
+    handleTypeChange(event, {name, value}) {
+
+        if (value === 'air') {
+
+           let airOptions = [
+                             {text:"Air Freight", value :"airFreight"},
+                             {text: "Duty Paid", value: "DutyPaid"},
+                            ];
+
+           this.setState({productOptions: airOptions});
+        }
+
+        if (value === 'sea') {
+
+            let seaOptions = [
+                {text:"LCL", value:"LCL"},
+                {text: "FCL", value:"FCL"},
+                {text: "Duty paid", value:"dutyPaid"},
+                {text: "Barrell Service", value: "barrellService"}
+            ];
+
+            this.setState({productOptions: seaOptions});
+        }
+
+        if (value === 'courier') {
+
+            let courierOptions = [
+                {text: "uk", value: "uk"},
+                {text: "euro", value: "euro"},
+                {text: "int. courier", value: "intCourier"},
+                {text: "Duty Paid", value: "dutyPaid"}
+            ];
+
+            this.setState({productOptions: courierOptions});
+        }
+
+        if (value === 'packaging') {
+
+            let packagingOptions = [
+                {text: "Home Repack", value: "homeRepack"},
+                {text: "Home shrink wrap", value: "homeShrinkWrap"},
+                {text: "View Goods", value: "viewGoods"},
+                {text: "Drop Packaging", value: "dropPackaging"}
+            ];
+
+            this.setState({productOptions: packagingOptions});
+        }
+
+
+    }
+
     render() {
 
-        var { piecesData, validationResult, bookingDate } = this.state;
+        var { piecesData, validationResult, bookingDate, typeOptions, productOptions } = this.state;
 
         const { validationErrors } = validationResult;
 
@@ -461,7 +523,8 @@ export class BookingsAndCollections extends Component {
             handleBookingDate,
             handleBookingDateTest,
             handleBookingTimeFrom,
-            handleContactNumber
+            handleContactNumber,
+            handleTypeChange
         } = this;
 
         return(
@@ -549,7 +612,30 @@ export class BookingsAndCollections extends Component {
 
                         <Divider />
 
-                        <Header> Parcel Information </Header>
+                        <Header>Enter Type and Product </Header>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Dropdown
+                                label="Select a type: "
+                                name="type"
+                                placeholder="Select a type"
+                                selection
+                                onChange={handleTypeChange}
+                                options={ typeOptions }
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Dropdown
+                                label="Select a product"
+                                placeholder="Select a product"
+                                selection
+                                options={ productOptions }
+
+                            />
+                        </Form.Group>
+
+                        <Header> Enter Booking Date and Time range: </Header>
 
                         <Form.Group widths='equal' className='package' >
                             <ReactCalendar
@@ -568,9 +654,6 @@ export class BookingsAndCollections extends Component {
                                 value = { this.state.bookingDate }
                             />
                         </Form.Group>
-
-
-                        <Header> Enter Booking Time range: </Header>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Input
