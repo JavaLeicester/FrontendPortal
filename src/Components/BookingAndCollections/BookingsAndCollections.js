@@ -14,6 +14,7 @@ import ReactCalendar from "../Common/ReactCalendar";
 
 export class BookingsAndCollections extends Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -40,7 +41,14 @@ export class BookingsAndCollections extends Component {
                 {text: "courier", value: "courier"},
                 {text: "packaging", value: "packaging"}
             ],
-            productOptions: []
+            productOptions: [],
+            staffOptions: [
+                { text: "Hussein", value: "Hussein" },
+                { text:"Yakub", value: "Yakub"},
+                { text:"Humayun", value: "Humayun"},
+                { text: "Hassain", value: "Hassain"}
+            ],
+            staffName:""
 
         };
 
@@ -73,6 +81,8 @@ export class BookingsAndCollections extends Component {
 
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleProductChange = this.handleProductChange.bind(this);
+
+        this.handleStaffNameChange = this.handleStaffNameChange.bind(this);
 
     }
 
@@ -284,7 +294,7 @@ export class BookingsAndCollections extends Component {
                 street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
                 piecesData, isHazardousGoods, bookingDate,
-                bookingTime, bookingTimeFrom, product, type
+                bookingTime, bookingTimeFrom, product, type, staffName
             } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
@@ -304,7 +314,8 @@ export class BookingsAndCollections extends Component {
                            bookingTime,
                            bookingTimeFrom,
                            product,
-                           type)
+                           type,
+                           staffName)
 
             // If valid the form
             // we are returned here from line 113 in InputValidator
@@ -351,8 +362,8 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type } = this.state;
-        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type);
+        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
+        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName);
 
         //alert(JSON.stringify(this.state, null,4));
         console.log(newBooking);
@@ -458,12 +469,7 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
-
-    /*
-
-     handleSpecialDeliveryChange(event,{name,value}) {
-
-        console.log(this.props);
+     handleStaffNameChange(event,{name,value}) {
 
         event.preventDefault();
         const { errorHandler } = this.props;
@@ -474,8 +480,6 @@ export class BookingsAndCollections extends Component {
             .then()
             .catch(error => errorHandler(error));
     }
-
-     */
 
     handleTypeChange(event, {name, value}) {
 
@@ -547,7 +551,7 @@ export class BookingsAndCollections extends Component {
 
     render() {
 
-        var { piecesData, validationResult, bookingDate, typeOptions, productOptions } = this.state;
+        var { piecesData, validationResult, bookingDate, typeOptions, productOptions, staffOptions } = this.state;
 
         const { validationErrors } = validationResult;
 
@@ -570,7 +574,8 @@ export class BookingsAndCollections extends Component {
             handleBookingTimeFrom,
             handleContactNumber,
             handleTypeChange,
-            handleProductChange
+            handleProductChange,
+            handleStaffNameChange
         } = this;
 
         return(
@@ -580,6 +585,21 @@ export class BookingsAndCollections extends Component {
                         <Segment className='raised small'>
                             Collection Call
                         </Segment>
+
+                        <Header>
+                            Staff Details
+                        </Header>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Dropdown
+                                label="Choose a staff"
+                                name="staffName"
+                                placeholder="Staff Name"
+                                selection
+                                options={ staffOptions }
+                                onChange={ handleStaffNameChange }
+                            />
+                        </Form.Group>
 
                         <Header>
                             Collection Data

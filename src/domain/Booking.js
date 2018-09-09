@@ -1,5 +1,5 @@
 class Booking {
-    constructor(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type) {
+    constructor(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName) {
 
         this.customerName = customerName;
         this.houseNumber = houseNumber;
@@ -16,6 +16,7 @@ class Booking {
         this.piecesData = piecesData;
         this.product = product;
         this.type = type;
+        this.staffName = staffName;
     }
 }
 
