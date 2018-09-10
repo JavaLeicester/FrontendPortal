@@ -321,8 +321,6 @@ export class BookingsAndCollections extends Component {
             // we are returned here from line 113 in InputValidator
             .then((validationResult) => {
 
-                alert(this.state);
-
                 this.setState({validationResult});
                 return resolve(validationResult);
             })
@@ -365,9 +363,7 @@ export class BookingsAndCollections extends Component {
         const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
         const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName);
 
-        //alert(JSON.stringify(this.state, null,4));
-        console.log(newBooking);
-        alert(JSON.stringify(newBooking, null, 4))
+        alert(JSON.stringify(this.state, null, 4));
 
         this.handleFormValidation()
             .then(function(result) {
@@ -483,9 +479,6 @@ export class BookingsAndCollections extends Component {
 
     handleTypeChange(event, {name, value}) {
 
-        alert(name);
-        alert(value);
-
         this.setState({[name]: value});
 
         if (value === 'air') {
@@ -548,6 +541,7 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
 
     }
+
 
     render() {
 
