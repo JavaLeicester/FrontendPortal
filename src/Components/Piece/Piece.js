@@ -52,7 +52,7 @@ export class Piece extends React.Component {
         const { onUpdate } = this;
 
         // Functions
-        const { handleDelete, handleDuplicate } = this.props;
+        const { handleDelete, handleDuplicate, handlePieceTypeSelection  } = this.props;
 
         return(
 
@@ -79,16 +79,17 @@ export class Piece extends React.Component {
                     name='height'
                     placeholder='height (cm)'
                     label="Height (cm)"
-                    onChange={onUpdate}
+                    onChange={handlePieceTypeSelection}
                 />
 
                 <Form.Dropdown
                         name="pieceType"
                         placeholder='Select a piece Type'
-                        fluid selection
+                        fluid
+                        selection
                         options={this.pieceType}
                         onChange={onUpdate}
-                    />
+                />
 
 
                 <Button

@@ -128,7 +128,7 @@ export default function InputValidator (customerName,
             .then(()=> {
                return  _.forEach(pieceData, q => {
 
-                    const { weight, length, width, height } = q;
+                    const { weight, length, width, height, pieceType } = q;
 
                     if (weight < 0) {
                         isFormValid = false;
@@ -165,10 +165,23 @@ export default function InputValidator (customerName,
                         
                         return Promise.reject(validationErrors[`${q.id} - ${height}`] = {
                             key: q.id,
-                            isWidthValid: false,
+                            isHeightValid: false,
                             message: "Height should be greater than 0"
                         });
                     }
+
+                    if (isEmpty(pieceType)) {
+                        isFormValid = false;
+
+                        return Promise.reject(validationErrors[`${q.id} - ${pieceType}`] = {
+
+                            key: q.id,
+                            isPieceTypeValid: false,
+                            message: "Piece type should have a valid"
+                        });
+                    }
+
+
                 }); // End For Each
 
             }) // End Then
