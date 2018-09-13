@@ -31,7 +31,7 @@ export class BookingsAndCollections extends Component {
             isHazardousGoods: false,
             isLooselyPacked: false,
             bookingDate: '',
-            bookingTime: '',
+            bookingTimeTo: '',
             bookingTimeFrom: '',
             type:"",
             product:"",
@@ -74,7 +74,7 @@ export class BookingsAndCollections extends Component {
         this.handleBookingDate = this.handleBookingDate.bind(this)
 
         this.handleBookingTimeFrom = this.handleBookingTimeFrom.bind(this);
-        this.handleBookingTime = this.handleBookingTime.bind(this);
+        this.handleBookingTimeTo = this.handleBookingTimeTo.bind(this);
 
         this.handleContactNumber = this.handleContactNumber.bind(this);
         this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
@@ -115,7 +115,7 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
-    handleBookingTime(event,{name, value}){
+    handleBookingTimeTo(event, {name, value}){
 
         event.preventDefault();
 
@@ -294,7 +294,7 @@ export class BookingsAndCollections extends Component {
                 street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
                 piecesData, isHazardousGoods, bookingDate,
-                bookingTime, bookingTimeFrom, product, type, staffName
+                bookingTimeTo, bookingTimeFrom, product, type, staffName
             } = this.state;
 
             // Pass all of the properties from the state into the InputValidator function
@@ -311,7 +311,7 @@ export class BookingsAndCollections extends Component {
                            isLooselyPacked,
                            isHazardousGoods,
                            bookingDate,
-                           bookingTime,
+                           bookingTimeTo,
                            bookingTimeFrom,
                            product,
                            type,
@@ -360,8 +360,8 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
-        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTime, bookingTimeFrom, piecesData, product, type, staffName);
+        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
+        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName);
 
         alert(JSON.stringify(this.state, null, 4));
 
@@ -722,16 +722,16 @@ export class BookingsAndCollections extends Component {
                                 control={Input}
                                 label="Enter a Booking time from: "
                                 placeholder="use 24 hour time (MM/HH)"
-                                name="bookingTime"
-                                onChange={this.handleBookingTime}
+                                name="bookingTimeFrom"
+                                onChange={this.handleBookingTimeFrom}
                             />
                             <Form.Input
                                 fluid
                                 control={Input}
                                 label="Enter a Booking time to: "
                                 placeholder="use 24 hour time (MM/HH)"
-                                name="bookingTimeFrom"
-                                onChange={this.handleBookingTimeFrom}
+                                name="bookingTimeTo"
+                                onChange={this.handleBookingTimeTo}
                             />
                         </Form.Group>
 
