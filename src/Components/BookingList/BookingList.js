@@ -36,7 +36,8 @@ export class BookingList extends Component {
                     city: booking.city,
                     customerName: booking.customerName,
                     bookingTimeFrom: booking.bookingTimeFrom,
-                    bookingTime: booking.bookingTime,
+                    // Future fix booking.bookingTimeTo is undefined had to use bookingTime though elsewhere I use bookingTimeTo
+                    bookingTimeTo: booking.bookingTime,
                     staffName: booking.staffName,
                     type:booking.type,
                     specialInstructions: booking.specialInstructions,
@@ -70,8 +71,6 @@ export class BookingList extends Component {
                 <Header>Booking list </Header>
 
                     { _.map(bookingReceipts, bookingReceipt => {
-                        console.log("The booking is");
-                        console.log(bookingReceipt);
                         return (
                             <BookingReceipt { ...bookingReceipt }/>
 
