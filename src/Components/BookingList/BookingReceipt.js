@@ -18,7 +18,7 @@ class BookingReceipt extends React.Component {
                 bookingDate,
                 city,
                 bookingTimeFrom,
-                bookingTime,
+                bookingTimeTo,
                 staffName,
                 type,
                 specialInstructions,
@@ -39,7 +39,7 @@ class BookingReceipt extends React.Component {
                         <Card.Header> Booking made by :<strong>  { staffName } </strong></Card.Header>
                         <Card.Meta> </Card.Meta>
                         <Card.Description>
-                            Collection between <strong> { bookingTimeFrom } </strong >and <strong> { bookingTime }</strong>
+                            Collection Time Between: <strong> { bookingTimeFrom } </strong > and <strong> { bookingTimeTo }</strong>
                             <strong>  </strong>
                         </Card.Description>
                         <Card.Description>
