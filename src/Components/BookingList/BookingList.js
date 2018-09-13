@@ -1,9 +1,11 @@
-import './BookingList.css';
 import _ from 'lodash';
-import Booking from '../../domain/Booking';
+import axios from 'axios';
+import './BookingList.css';
 import React, { Component } from 'react';
-import BookingReceipt from './BookingReceipt'
-import { Grid, Header, Container } from 'semantic-ui-react';
+import Booking from '../../domain/Booking';
+import BookingReceipt from './BookingReceipt';
+import { getBooking } from "../ApiClient/ApiClient";
+import { Grid, Header, Container, Dimmer, Loader } from 'semantic-ui-react';
 
 export class BookingList extends Component {
 
@@ -11,6 +13,7 @@ export class BookingList extends Component {
         super(props);
         this.state = {
             bookingReceipts: [],
+            loading: false
         };
     }
 
@@ -18,53 +21,66 @@ export class BookingList extends Component {
 
         const { bookingReceipts } = this.state;
 
-          //  customerName, houseNumber, street, postcode, city, specialInstructions,
-         //   generalDescription, isHazardousGoods, isLooselyPacked,
-          //  bookingDate, bookingTime, piecesData) {
+        this.setState({
+            loading: true
+        });
 
-        const newBooking = new Booking(
-                "custom", "hou", "street", "postcode", "city", "specialinstructions",
-                "generalDe", "isHazard", "isLooslyPacked", "BookingDate", "Bok"
+        const options = [];
 
-        );
+        axios.get('http://localhost:8080/api/bookings')
+            .then(response => _.map(response.data, (booking) => {
 
-        const newBookingTwo = new Booking(
-            "custom", "hou", "street", "postcode", "city", "specialinstructions",
-            "generalDe", "isHazard", "isLooslyPacked", "BookingDate", "Bok"
+                const option = {
+                    key: booking.id,
+                    bookingDate: booking.bookingDate,
+                    city: booking.city,
+                    customerName: booking.customerName,
+                    bookingTimeFrom: booking.bookingTimeFrom,
+                    bookingTime: booking.bookingTime,
+                    staffName: booking.staffName,
+                    type:booking.type,
+                    specialInstructions: booking.specialInstructions,
+                    generalDescription: booking.generalDescription,
+                    houseNumber: booking.houseNumber,
+                    isHazardousGoods: booking.isHazardousGoods,
+                    isLooselyPacked: booking.isLooselyPacked,
+                    product: booking.product,
+                    postcode: booking.postcode,
 
-        );
+                };
 
-        const newBookingThree = new Booking(
-            "custom", "hou", "street", "postcode", "city", "specialinstructions",
-            "generalDe", "isHazard", "isLooslyPacked", "BookingDate", "Bok"
-
-        );
-
-        bookingReceipts.push(newBooking);
-        bookingReceipts.push(newBookingTwo);
-        bookingReceipts.push(newBookingThree);
-
-
-        this.setState(bookingReceipts);
+                options.push(option);
+            }))
+            .then(() => {
+                this.setState({
+                    loading: false,
+                    bookingReceipts: options,
+                });
+            })
+            .catch(error => console.log(error));
     }
-
 
     render() {
 
-        const { bookingReceipts} = this.state;
+        const { bookingReceipts, loading } = this.state;
 
         return(
+
             <Grid className='ui fluid one column center aligned justified' className="bookingBackground" container verticalAlign='middle'>
                 <Header>Booking list </Header>
 
-
                     { _.map(bookingReceipts, bookingReceipt => {
+                        console.log("The booking is");
+                        console.log(bookingReceipt);
                         return (
-                            <BookingReceipt/>
+                            <BookingReceipt { ...bookingReceipt }/>
 
                         );
                     })}
 
+                <Dimmer active={loading}>
+                    <Loader />
+                </Dimmer>
             </Grid>
 
         );
