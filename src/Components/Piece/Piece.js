@@ -52,7 +52,7 @@ export class Piece extends React.Component {
         const { onUpdate } = this;
 
         // Functions
-        const { handleDelete, handleDuplicate, handlePieceTypeSelection  } = this.props;
+        const { handleDelete, handleDuplicate  } = this.props;
 
         return(
 
@@ -79,7 +79,7 @@ export class Piece extends React.Component {
                     name='height'
                     placeholder='height (cm)'
                     label="Height (cm)"
-                    onChange={handlePieceTypeSelection}
+                    onChange={onUpdate}
                 />
 
                 <Form.Dropdown
