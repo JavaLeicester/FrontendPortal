@@ -55,7 +55,7 @@ class BookingReceipt extends React.Component {
                             </Button>
                             <Button primary>
                                 Generate Collection Note
-                                { houseNumber}
+
                             </Button>
                             <Button secondary>
                                 Generate Collection Receipt
