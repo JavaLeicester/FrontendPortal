@@ -46,9 +46,15 @@ export class BookingList extends Component {
                     isHazardousGoods: booking.isHazardousGoods,
                     isLooselyPacked: booking.isLooselyPacked,
                     product: booking.product,
-                    postcode: booking.postcode,
+                    postcode: booking.postCode,
 
                 };
+
+                console.log("The Booking is");
+                console.log(booking);
+
+                console.log("The postcode is ");
+                console.log(option.postcode);
 
                 options.push(option);
             }))
