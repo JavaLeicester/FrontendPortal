@@ -4,7 +4,6 @@ class Booking {
         this.customerName = customerName;
         this.houseNumber = houseNumber;
         this.street = street;
-        this.postcode = postcode;
         this.city = city;
         this.specialInstructions = specialInstructions;
         this.generalDescription = generalDescription;
@@ -17,6 +16,7 @@ class Booking {
         this.product = product;
         this.type = type;
         this.staffName = staffName;
+        this.postCode = postcode;
     }
 }
 
