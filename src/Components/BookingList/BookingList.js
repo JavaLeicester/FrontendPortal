@@ -16,7 +16,9 @@ export class BookingList extends Component {
             loading: false
         };
 
+        this.handleGenerateReceipt = this.handleGenerateReceipt.bind(this);
         this.handleGenerateCollection = this.handleGenerateCollection.bind(this);
+
     }
 
     componentDidMount() {
@@ -68,6 +70,19 @@ export class BookingList extends Component {
             .catch(error => console.log(error));
     }
 
+    handleGenerateReceipt(event, { name, value }) {
+
+        const { bookingReceipts } = this.state;
+
+        var objecta =  _.find(bookingReceipts,function(q) { return q.id === name });
+
+        this.props.history.push({
+            pathname: '/collectionReceipt',
+            state: { objecta }
+        });
+
+    }
+
     handleGenerateCollection(event, { name, value }) {
 
         const { bookingReceipts } = this.state;
@@ -90,8 +105,9 @@ export class BookingList extends Component {
              pathname: '/collectionNote',
              state: { objecta }
         });
-
     }
+
+
 
     render() {
 
@@ -99,7 +115,7 @@ export class BookingList extends Component {
         const { bookingReceipts, loading } = this.state;
 
         //Functions
-        const { handleGenerateCollection } = this;
+        const { handleGenerateCollection, handleGenerateReceipt } = this;
 
         return(
 
@@ -112,6 +128,7 @@ export class BookingList extends Component {
                             <BookingReceipt
                                 { ...bookingReceipt }
                                 onClick={ handleGenerateCollection }
+                                passedFunction={ handleGenerateReceipt }
 
                             />
 
