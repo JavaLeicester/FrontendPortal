@@ -26,14 +26,16 @@ const BookingReceipt = (props) => (
 
                     </Button>
                     <Button primary
-
                             name={props.id}
                             onClick={props.onClick }
                     >
                         Generate Collection Note
 
                     </Button>
-                    <Button secondary>
+                    <Button secondary
+                            name={props.id}
+                            onClick={ props.passedFunction }
+                    >
                         Generate Collection Receipt
                     </Button>
                 </div>
