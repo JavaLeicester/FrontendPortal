@@ -84,6 +84,8 @@ export class BookingsAndCollections extends Component {
 
         this.handleStaffNameChange = this.handleStaffNameChange.bind(this);
 
+        this.handleGenerateCollection = this.handleGenerateCollection.bind(this);
+
     }
 
 
@@ -543,6 +545,11 @@ export class BookingsAndCollections extends Component {
     }
 
 
+    handleGenerateCollection(event){
+
+        alert(event);
+    }
+
     render() {
 
         var { piecesData, validationResult, bookingDate, typeOptions, productOptions, staffOptions } = this.state;
@@ -569,7 +576,10 @@ export class BookingsAndCollections extends Component {
             handleContactNumber,
             handleTypeChange,
             handleProductChange,
-            handleStaffNameChange
+            handleStaffNameChange,
+
+            handleGenerateCollection
+
         } = this;
 
         return(
@@ -773,6 +783,7 @@ export class BookingsAndCollections extends Component {
                                         handleDuplicate={ handleDuplicatePiece }
                                         handleChange={ handlePieceDataChange }
                                         handleDelete={ handleDeletePiece }
+
                                     />
                                 </Grid.Row>);
                             })

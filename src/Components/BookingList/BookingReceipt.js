@@ -2,9 +2,50 @@ import React from 'react';
 import './BookingReceipt.css';
 import { Card, Grid, Image, Button, Divider } from 'semantic-ui-react';
 
-class BookingReceipt extends React.Component {
+const BookingReceipt = (props) => (
+    <Grid.Row>
+        <Grid.Column className="background">
+            <Card.Content>
+                <Image floated='right' size='mini'
+                       src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'/>
+                <Card.Header> Booking made by :<strong>  { props.staffName } </strong></Card.Header>
+                <Card.Meta> </Card.Meta>
+                <Card.Description>
+                    Collection Time Between: <strong> { props.bookingTimeFrom } </strong > and <strong> { props.bookingTimeTo }</strong>
+                    <strong>  </strong>
+                </Card.Description>
+                <Card.Description>
+                    Collection Date:
+                    <strong> { props.bookingDate } </strong>
+                </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <div className='ui three buttons'>
+                    <Button basic color='green'>
+                        Booking Complete
 
-    constructor(props) {
+                    </Button>
+                    <Button primary
+
+                            name={props.id}
+                            onClick={props.onClick }
+                    >
+                        Generate Collection Note
+
+                    </Button>
+                    <Button secondary>
+                        Generate Collection Receipt
+                    </Button>
+                </div>
+            </Card.Content>
+        </Grid.Column>
+    </Grid.Row>
+
+);
+
+export default BookingReceipt;
+
+/*    constructor(props) {
         super(props);
 
     }
@@ -29,44 +70,15 @@ class BookingReceipt extends React.Component {
                 postcode
         } = this.props;
 
+        //Function
+        const { onClick } = this.props;
+
         return (
 
-            <Grid.Row>
-                <Grid.Column className="background">
-                    <Card.Content>
-                        <Image floated='right' size='mini'
-                               src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'/>
-                        <Card.Header> Booking made by :<strong>  { staffName } </strong></Card.Header>
-                        <Card.Meta> </Card.Meta>
-                        <Card.Description>
-                            Collection Time Between: <strong> { bookingTimeFrom } </strong > and <strong> { bookingTimeTo }</strong>
-                            <strong>  </strong>
-                        </Card.Description>
-                        <Card.Description>
-                            Collection Date:
-                            <strong> { bookingDate } </strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui three buttons'>
-                            <Button basic color='green'>
-                                Booking Complete
 
-                            </Button>
-                            <Button primary>
-                                Generate Collection Note
-
-                            </Button>
-                            <Button secondary>
-                                Generate Collection Receipt
-                            </Button>
-                        </div>
-                    </Card.Content>
-                </Grid.Column>
-            </Grid.Row>
 
         );
     };
 }
 
-export default BookingReceipt;
+export default BookingReceipt;*/
