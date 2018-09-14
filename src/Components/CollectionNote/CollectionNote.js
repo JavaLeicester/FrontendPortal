@@ -86,7 +86,7 @@ class CollectionNote extends React.Component {
                         </Grid.Column>
 
                         <Grid.Column>
-                            Charged Weight
+                            Chargeable Weight
                         </Grid.Column>
 
                         <Grid.Column>
