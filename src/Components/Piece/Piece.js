@@ -91,7 +91,6 @@ export class Piece extends React.Component {
                         onChange={onUpdate}
                 />
 
-
                 <Button
                     content="Add"
                     className="blue large"

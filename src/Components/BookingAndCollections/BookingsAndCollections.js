@@ -577,12 +577,11 @@ export class BookingsAndCollections extends Component {
             handleTypeChange,
             handleProductChange,
             handleStaffNameChange,
-
             handleGenerateCollection
-
         } = this;
 
-        return(
+        return (
+
             <Grid className='one column center aligned blue' class="form" container>
                 <Grid.Column width={12}>
                     <Form onSubmit={this.handleSubmit} class="form">

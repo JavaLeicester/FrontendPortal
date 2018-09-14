@@ -50,14 +50,12 @@ export class BookingList extends Component {
                     product: booking.product,
                     postcode: booking.postCode,
                     pieceData: booking.piecesData
-
                 };
 
-                console.log("The Booking is");
-                console.log(booking);
+                console.log("The pieceData is ");
+                console.log(option.pieceData);
 
-                console.log("The postcode is ");
-                console.log(option.postcode);
+
 
                 options.push(option);
             }))
@@ -82,7 +80,7 @@ export class BookingList extends Component {
         console.log("The booking receipts are: ");
         console.log(bookingReceipts);
 
-        var objecta =  _.find(bookingReceipts,function(q) { return q.id === name});
+        var objecta =  _.find(bookingReceipts,function(q) { return q.id === name });
 
         console.log(objecta);
 
