@@ -9,6 +9,8 @@ class CollectionNote extends React.Component {
         this.state = {
 
         };
+
+
     }
 
     render() {
@@ -24,9 +26,13 @@ class CollectionNote extends React.Component {
                 product,
                 type,
                 street,
-                pieceData
+                pieceData,
+                chargeableWeight
         } = this.props.location.state.objecta;
 
+
+        console.log("Inside Collection note: ");
+        console.log(this.props.location.state.objecta);
 
         return(
             <Container>
@@ -100,6 +106,7 @@ class CollectionNote extends React.Component {
                                 </Grid.Column>
 
                                 <Grid.Column>
+                                    { g.weight}
                                 </Grid.Column>
 
                                 <Grid.Column>
@@ -115,10 +122,11 @@ class CollectionNote extends React.Component {
                                 </Grid.Column>
 
                                 <Grid.Column>
+                                    { g.volumeWeight }
                                 </Grid.Column>
 
                                 <Grid.Column>
-
+                                    { g.chargeableWeight }
                                 </Grid.Column>
 
                                 <Grid.Column>
