@@ -15,6 +15,8 @@ export class BookingList extends Component {
             bookingReceipts: [],
             loading: false
         };
+
+        this.handleGenerateCollection = this.handleGenerateCollection.bind(this);
     }
 
     componentDidMount() {
@@ -31,7 +33,7 @@ export class BookingList extends Component {
             .then(response => _.map(response.data, (booking) => {
 
                 const option = {
-                    key: booking.id,
+                    id: booking.id,
                     bookingDate: booking.bookingDate,
                     city: booking.city,
                     customerName: booking.customerName,
@@ -47,6 +49,7 @@ export class BookingList extends Component {
                     isLooselyPacked: booking.isLooselyPacked,
                     product: booking.product,
                     postcode: booking.postCode,
+                    pieceData: booking.piecesData
 
                 };
 
@@ -67,18 +70,52 @@ export class BookingList extends Component {
             .catch(error => console.log(error));
     }
 
+    handleGenerateCollection(event, { name, value }) {
+
+        const { bookingReceipts } = this.state;
+
+        console.log("oooooooooooooo");
+        console.log(name);
+        console.log("tHE VALUE IS");
+        console.log(value);
+
+        console.log("The booking receipts are: ");
+        console.log(bookingReceipts);
+
+        var objecta =  _.find(bookingReceipts,function(q) { return q.id === name});
+
+        console.log(objecta);
+
+        alert(objecta);
+
+        this.props.history.push({
+             pathname: '/collectionNote',
+             state: { objecta }
+        });
+
+    }
+
     render() {
 
+        //Properties
         const { bookingReceipts, loading } = this.state;
+
+        //Functions
+        const { handleGenerateCollection } = this;
 
         return(
 
             <Grid className='ui fluid one column center aligned justified' className="bookingBackground" container verticalAlign='middle'>
-                <Header>Booking list </Header>
+                <Header> Booking list </Header>
 
                     { _.map(bookingReceipts, bookingReceipt => {
                         return (
-                            <BookingReceipt { ...bookingReceipt }/>
+
+                            <BookingReceipt
+                                { ...bookingReceipt }
+                                onClick={ handleGenerateCollection }
+
+                            />
 
                         );
                     })}
