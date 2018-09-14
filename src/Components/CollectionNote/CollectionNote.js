@@ -9,10 +9,6 @@ class CollectionNote extends React.Component {
         this.state = {
 
         };
-
-        console.log("THe stae");
-        console.log(this.props.location.state);
-
     }
 
     render() {
@@ -96,8 +92,6 @@ class CollectionNote extends React.Component {
 
                     { _.map(pieceData, g => {
 
-                        console.log("G is ");
-                        console.log(g);
                         return(
                             <Grid.Row>
 
