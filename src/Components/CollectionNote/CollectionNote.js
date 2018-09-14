@@ -35,6 +35,8 @@ class CollectionNote extends React.Component {
         return(
             <Container>
 
+                <Header> Collection Note </Header>
+
                 <List>
                     <List.Item> <strong>BookingDate:</strong> { bookingDate } </List.Item>
                     <List.Item> <strong>BookingTimeFrom:</strong> {bookingTimeFrom} </List.Item>
@@ -55,60 +57,77 @@ class CollectionNote extends React.Component {
 
 
 
-                <Grid className='one column center aligned blue' relaxed='very' container columns={8}>
-                    <Grid.Column>
-                         Piece Number
-                    </Grid.Column>
+                <Grid className='one column center aligned blue' relaxed='very' container columns={8} celled>
+                    <Grid.Row>
+                        <Grid.Column>
+                             Piece Number
+                        </Grid.Column>
 
-                    <Grid.Column>
-                         Actual Weight
-                    </Grid.Column>
+                        <Grid.Column>
+                             Actual Weight
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        length
-                    </Grid.Column>
+                        <Grid.Column>
+                            length
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        Width
-                    </Grid.Column>
+                        <Grid.Column>
+                            Width
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        Height
-                    </Grid.Column>
+                        <Grid.Column>
+                            Height
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        Volume Weight
-                    </Grid.Column>
+                        <Grid.Column>
+                            Volume Weight
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        Charged Weight
-                    </Grid.Column>
+                        <Grid.Column>
+                            Charged Weight
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        Additional Info
-                    </Grid.Column>
+                        <Grid.Column>
+                            Additional Info
+                        </Grid.Column>
+
+                    </Grid.Row>
 
 
                     { _.map(pieceData, g => {
 
                         console.log("G is ");
                         console.log(g);
-
                         return(
                             <Grid.Row>
 
                                 <Grid.Column>
+                                    { g.id = _.uniqueId() }
                                 </Grid.Column>
 
                                 <Grid.Column>
                                 </Grid.Column>
 
                                 <Grid.Column>
-                                   { g.length }
+                                    { g.length }
+                                </Grid.Column>
+
+                                <Grid.Column>
+                                    { g.width}
+                                </Grid.Column>
+
+                                <Grid.Column>
+                                    { g.height}
+                                </Grid.Column>
+
+                                <Grid.Column>
                                 </Grid.Column>
 
                                 <Grid.Column>
 
+                                </Grid.Column>
+
+                                <Grid.Column>
                                 </Grid.Column>
 
                             </Grid.Row>
