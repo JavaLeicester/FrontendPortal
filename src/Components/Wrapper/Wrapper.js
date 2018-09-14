@@ -4,6 +4,7 @@ import {BookingList} from "../BookingList/BookingList";
 import {BookingsAndCollections} from "../BookingAndCollections/BookingsAndCollections";
 import BookingReceipt from "../BookingList/BookingReceipt";
 import CollectionNote from "../CollectionNote/CollectionNote";
+import CollectionReceipt from "../CollectionReceipt/CollectionReceipt";
 
 export default function Wrapper(props) {
 
@@ -25,8 +26,12 @@ export default function Wrapper(props) {
 
                 <Route
                  path="/collectionNote"
-
                   render={props => <CollectionNote { ...props } /> }
+                />
+
+                <Route
+                    path="/collectionReceipt"
+                    render={props => <CollectionReceipt { ...props } /> }
                 />
 
             </Switch>
