@@ -1,1 +1,1 @@
-[![CircleCI](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master.svg?style=svg)](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master)
+[![CircleCI](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master.svg?style=svg&circle-token=a77468460958a73e30e81b9a2bf0c34975cbbfd8)](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master)
