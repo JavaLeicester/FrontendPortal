@@ -3,9 +3,9 @@ import _ from 'lodash';
 import React from 'react';
 import 'semantic-ui-css/semantic.css';
 import { Grid } from 'semantic-ui-react';
-import { Notification } from '../src/Components/Common';
-import Wrapper from '../src/Components/Wrapper/Wrapper';
-import { BookingsAndCollections } from "./Components/BookingAndCollections/BookingsAndCollections";
+import { Notification } from '../Common';
+import Wrapper from '../Wrapper/Wrapper';
+import { BookingsAndCollections } from "../BookingAndCollections/BookingsAndCollections";
 
 class App extends React.Component {
 
