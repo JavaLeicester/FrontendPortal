@@ -10,7 +10,7 @@ import { addBooking } from "../ApiClient/ApiClient";
 import Booking from "../../domain/Booking";
 
 import moment from 'moment';
-import ReactCalendar from "../Common/ReactCalendar";
+import ReactCalendar from "../Calendar/ReactCalendar";
 
 export class BookingsAndCollections extends Component {
 
@@ -708,9 +708,9 @@ export class BookingsAndCollections extends Component {
 
                         <Header> Enter Booking Date and Time range: </Header>
 
-                        <Form.Group widths='equal' className='package' >
+                        <Form.Group widths='equal' className='package'>
                             <ReactCalendar
-                                { ...bookingDate}
+                                { ...bookingDate }
                                 onChange ={handleBookingDateTest}
                             />
                         </Form.Group>
