@@ -712,7 +712,6 @@ export class BookingsAndCollections extends Component {
                             <ReactCalendar
                                 { ...bookingDate }
                                 onChange ={handleBookingDateTest}
-                                verticalAlign='middle'
                             />
                         </Form.Group>
 
