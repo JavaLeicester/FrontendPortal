@@ -586,7 +586,7 @@ export class BookingsAndCollections extends Component {
                 <Grid.Column width={12}>
                     <Form onSubmit={this.handleSubmit} class="form">
                         <Segment className='raised small'>
-                            Collection Call
+                            Collection Call TWO
                         </Segment>
 
                         <Header>
