@@ -35,14 +35,13 @@ jobs:
 
       # run tests!
       - run: npm test
-
-      deploy:
+  deploy:
         machine:
           enabled: true
         steps:
-          -add_ssh_keys:
-            fingerprints:
-              - "53:c4:5a:12:6d:7c:18:cd:a5:fe:b1:b6:9e:62:2e:52"
+          - add_ssh_keys:
+              fingerprints:
+                  - "53:c4:5a:12:6d:7c:18:cd:a5:fe:b1:b6:9e:62:2e:52"
           - run:
               name: Deploy Over SSH
               command: |
