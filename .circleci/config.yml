@@ -45,4 +45,4 @@ jobs:
           - run:
               name: Deploy Over SSH
               command: |
-                 ssh -v root@178.128.170.227 "/var/local/deployScripts/./deployFe.sh"
+                 ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
