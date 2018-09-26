@@ -41,8 +41,8 @@ jobs:
         steps:
           - add_ssh_keys:
               fingerprints:
-                  - "53:c4:5a:12:6d:7c:18:cd:a5:fe:b1:b6:9e:62:2e:52"
+                  - "16:a3:20:18:79:6d:d4:5c:e7:70:da:20:cb:e7:f1:75"
           - run:
               name: Deploy Over SSH
               command: |
-                 ssh -v root@178.128.170.227 "/var/local/deployScripts/./deployFe.sh"
+                 ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
