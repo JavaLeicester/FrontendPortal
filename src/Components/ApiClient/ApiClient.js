@@ -2,7 +2,7 @@ import axios from 'axios';
 
 function getServerBaseUrl() {
      // just local development at the moment
-     return `http://46.101.34.160:9001`;
+     return `http://46.101.34.160:8080`;
      // return `http://localhost:8080`;
 }
 
