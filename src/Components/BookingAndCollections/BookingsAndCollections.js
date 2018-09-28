@@ -431,6 +431,7 @@ export class BookingsAndCollections extends Component {
 
     // Child child Piece invokes this class as Parent passing
     // up all the relevant properties
+    ////
     handlePieceDataChange(id, nameOfField, valueOfField) {
 
         const { errorHandler } = this.props;
@@ -586,7 +587,7 @@ export class BookingsAndCollections extends Component {
                 <Grid.Column width={12}>
                     <Form onSubmit={this.handleSubmit} class="form">
                         <Segment className='raised small'>
-                            Collection Call TWO Three
+                            Collection Call
                         </Segment>
 
                         <Header>
