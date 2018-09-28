@@ -431,6 +431,7 @@ export class BookingsAndCollections extends Component {
 
     // Child child Piece invokes this class as Parent passing
     // up all the relevant properties
+    //
     handlePieceDataChange(id, nameOfField, valueOfField) {
 
         const { errorHandler } = this.props;
