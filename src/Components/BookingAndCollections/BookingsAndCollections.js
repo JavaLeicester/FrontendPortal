@@ -671,6 +671,33 @@ export class BookingsAndCollections extends Component {
 
                         <Divider />
 
+                        <Header>
+                            Receiver details
+                        </Header>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name='receiverName'
+                                placeholder='Receiver Name'
+                                label="receiverName"
+
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name='receiverAddress'
+                                placeholder='Receiver Address'
+                                label='receiverAddress'
+
+                            />
+                        </Form.Group>
+
+
+                        <Divider />
+
                         <Header>Enter Type and Product </Header>
 
                         <Form.Group widths='equal' className='package'>
