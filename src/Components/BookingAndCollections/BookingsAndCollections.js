@@ -1,19 +1,16 @@
 import _ from 'lodash';
+import moment from 'moment';
 import './BookingsAndCollections.css';
 import { Piece } from '../Piece/Piece';
 import React, { Component } from 'react';
+import Booking from "../../domain/Booking";
+import { addBooking } from "../ApiClient/ApiClient";
+import ReactCalendar from "../Calendar/ReactCalendar";
 import { validateInputs, ValidationError, CheckBox } from '../Common';
 import { bookingAndCollectionModel, NotificationData } from '../../domain/';
 import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio, Dropdown } from 'semantic-ui-react';
 
-import { addBooking } from "../ApiClient/ApiClient";
-import Booking from "../../domain/Booking";
-
-import moment from 'moment';
-import ReactCalendar from "../Calendar/ReactCalendar";
-
 export class BookingsAndCollections extends Component {
-
 
     constructor(props) {
         super(props);
@@ -84,10 +81,7 @@ export class BookingsAndCollections extends Component {
 
         this.handleStaffNameChange = this.handleStaffNameChange.bind(this);
 
-        this.handleGenerateCollection = this.handleGenerateCollection.bind(this);
-
     }
-
 
     handleHazardousGoods(event) {
         const { errorHandler } = this.props;
@@ -117,7 +111,7 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
-    handleBookingTimeTo(event, {name, value}){
+    handleBookingTimeTo(event, {name, value}) {
 
         event.preventDefault();
 
@@ -218,7 +212,7 @@ export class BookingsAndCollections extends Component {
 
     }
 
-    handlePostCodeChange(event,{name, value}) {
+    handlePostCodeChange(event, {name, value }) {
 
         event.preventDefault();
         const { errorHandler } = this.props;
@@ -286,6 +280,7 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
+    // In this branch we will be focusing on deployment
     // If comming from handlePieceDataChange, we update the pieces first
     // then once we update the indivdiual pieces we then do validation on them
     handleFormValidation() {
@@ -355,6 +350,7 @@ export class BookingsAndCollections extends Component {
             var modifiedArray = _.remove(piecesData, (onePiece) => onePiece.id === id);
             this.setState({piecesData: piecesData });
         }
+
     }
 
     handleSubmit(event) {
@@ -545,12 +541,6 @@ export class BookingsAndCollections extends Component {
 
     }
 
-
-    handleGenerateCollection(event){
-
-        alert(event);
-    }
-
     render() {
 
         var { piecesData, validationResult, bookingDate, typeOptions, productOptions, staffOptions } = this.state;
@@ -577,8 +567,7 @@ export class BookingsAndCollections extends Component {
             handleContactNumber,
             handleTypeChange,
             handleProductChange,
-            handleStaffNameChange,
-            handleGenerateCollection
+            handleStaffNameChange
         } = this;
 
         return (
