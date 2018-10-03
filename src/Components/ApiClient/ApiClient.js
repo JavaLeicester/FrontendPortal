@@ -3,7 +3,7 @@ import axios from 'axios';
 function getServerBaseUrl() {
      // just local development at the moment
     // return `http://46.101.34.160:9000`;
-     return `http://localhost:8081`;
+     return `http://46.101.34.160:8081`;
 }
 
 export const SERVER_BASE_URL = getServerBaseUrl();
