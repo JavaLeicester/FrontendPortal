@@ -680,7 +680,7 @@ export class BookingsAndCollections extends Component {
                                 control={Input}
                                 name='receiverName'
                                 placeholder='Receiver Name'
-                                label="receiverName"
+                                label="Receiver Name"
 
                             />
                         </Form.Group>
@@ -688,17 +688,51 @@ export class BookingsAndCollections extends Component {
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
-                                name='receiverAddress'
-                                placeholder='Receiver Address'
-                                label='receiverAddress'
-
+                                name='receiverContactNumber'
+                                placeholder='Contact Number'
+                                label="Receiver Contact Number"
                             />
                         </Form.Group>
 
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name="receiverHouseNumber"
+                                placeholder="House Number"
+                                label="Receiver House Number"
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name="receiverStreet"
+                                placeholder="Street"
+                                label="Receiver Street"
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name="receiverPostCode"
+                                placeholder="postCode"
+                                label="Receiver postCode"
+                            />
+                        </Form.Group>
+
+                        <Form.Group widths='equal' className='package'>
+                            <Form.Field
+                                control={Input}
+                                name="receiverCity"
+                                placeholder="receiverCity"
+                                label="Receiver City"
+                            />
+                        </Form.Group>
 
                         <Divider />
 
-                        <Header>Enter Type and Product </Header>
+                        <Header> Enter Type and Product </Header>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Dropdown
