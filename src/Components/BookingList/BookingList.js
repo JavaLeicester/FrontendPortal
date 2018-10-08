@@ -31,7 +31,8 @@ export class BookingList extends Component {
 
         const options = [];
 
-        axios.get('http://localhost:8085/api/bookings')
+        // 46.101.34.160
+        axios.get('http://46.101.34.160:8085/api/bookings')
             .then(response => _.map(response.data, (booking) => {
 
                 const option = {
