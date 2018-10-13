@@ -665,7 +665,6 @@ export class BookingsAndCollections extends Component {
                                 placeholder="Special Instructions For Delivery"
                                 label="Special instructions for Delivery"
                                 onChange={handleSpecialDeliveryChange}
-                                name="specialInstructions"
                             />
                         </Form.Group>
 
