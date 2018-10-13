@@ -49,7 +49,7 @@ jobs:
             name: Deploy Over SSH
             command: |
               ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
-workflows:g
+workflows:
   version: 2
   build-and-deploy:
     jobs:
