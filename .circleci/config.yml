@@ -37,7 +37,7 @@ jobs:
       # run tests!
       - run: yarn test
       #run linting
-      - run: yarn run lint
+      - run: npm run build
   deploy:
       machine:
         enabled: true
