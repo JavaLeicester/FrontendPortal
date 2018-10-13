@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:8.11.3
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -25,8 +25,9 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+      - run: rm -rf node_modules/
 
-      - run: npm install
+      - run: yarn install
 
       - save_cache:
           paths:
@@ -34,23 +35,28 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm test
-
-    #deployment:
-    #  production:
-    #     branch: master
-    #     commands:
-    #      - npm install
-    #       - npm run build
-    #       - scp -r build/*
+      - run: yarn test
+      #run linting
+      - run: yarn run lint
   deploy:
-         machine:
-           enabled: true
-         steps:
-           - add_ssh_keys:
-               fingerprints:
-                   - "16:a3:20:18:79:6d:d4:5c:e7:70:da:20:cb:e7:f1:75"
-           - run:
-               name: Deploy Over SSH
-                 command: |
-                      ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
+      machine:
+        enabled: true
+      steps:
+        - add_ssh_keys:
+            fingerprints:
+              - "16:a3:20:18:79:6d:d4:5c:e7:70:da:20:cb:e7:f1:75"
+        - run:
+            name: Deploy Over SSH
+            command: |
+              ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
