@@ -27,7 +27,7 @@ jobs:
           - v1-dependencies-
       - run: rm -rf node_modules/
 
-      - run: yarn install
+      - run: npm install
 
       - save_cache:
           paths:
@@ -35,7 +35,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm install
+      - run: npm test
       #run linting
       - run: npm run build
   deploy:
@@ -49,7 +49,7 @@ jobs:
             name: Deploy Over SSH
             command: |
               ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
-workflows:
+workflows:g
   version: 2
   build-and-deploy:
     jobs:
