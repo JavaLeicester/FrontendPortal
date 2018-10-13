@@ -52,5 +52,5 @@ jobs:
                    - "16:a3:20:18:79:6d:d4:5c:e7:70:da:20:cb:e7:f1:75"
            - run:
                name: Deploy Over SSH
-               command: |
-                  ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
+    #             command: |
+     #                 ssh -v root@46.101.34.160 "/var/local/deployScripts/./deployFe.sh"
