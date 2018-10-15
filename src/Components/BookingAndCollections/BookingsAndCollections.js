@@ -17,7 +17,7 @@ export class BookingsAndCollections extends Component {
         this.state = {
             piecesData:[new bookingAndCollectionModel()],
             customerName:'',
-            contactNumber: '',
+            mobile: '',
             houseNumber: '',
             street: '',
             postcode: '',
@@ -287,7 +287,7 @@ export class BookingsAndCollections extends Component {
         return new Promise(((resolve, reject) => {
 
         // Get all the properties from the state
-        const { customerName, contactNumber, houseNumber,
+        const { customerName, mobile, houseNumber,
                 street, postcode, city,
                 specialInstructions,generalDescription, isLooselyPacked,
                 piecesData, isHazardousGoods, bookingDate,
@@ -297,7 +297,7 @@ export class BookingsAndCollections extends Component {
             // Pass all of the properties from the state into the InputValidator function
             validateInputs(
                            customerName,
-                           contactNumber,
+                           mobile,
                            houseNumber,
                            street,
                            postcode,
@@ -358,8 +358,8 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-        const { customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
-        const newBooking = new Booking(customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName);
+        const { mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
+        const newBooking = new Booking(mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName);
 
         alert(JSON.stringify(this.state, null, 4));
 
@@ -368,6 +368,8 @@ export class BookingsAndCollections extends Component {
 
                 addBooking(newBooking)
                     .then(function ({result}) {
+
+                        console.log(result);
 
                         history.push('/bookingList');
                     })
@@ -378,7 +380,6 @@ export class BookingsAndCollections extends Component {
                         errorHandler(error)
 
                     });
-
             })
             .catch(error => errorHandler(error));
 
@@ -450,9 +451,9 @@ export class BookingsAndCollections extends Component {
             });
     }
 
-    handleContactNumber(event, {name,value}) {
+    handleContactNumber(event, {name, value}) {
 
-        console.log(this.props);
+        console.log(name);
 
         event.preventDefault();
         const { errorHandler } = this.props;
@@ -576,7 +577,7 @@ export class BookingsAndCollections extends Component {
                 <Grid.Column width={12}>
                     <Form onSubmit={this.handleSubmit} class="form">
                         <Segment className='raised small'>
-                            Collection Call Two
+                            Collection Call
                         </Segment>
 
                         <Header>
@@ -611,7 +612,7 @@ export class BookingsAndCollections extends Component {
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
                                 control={Input}
-                                name='contactNumber'
+                                name='mobile'
                                 placeholder='Contact Number'
                                 label='Contact Number'
                                 onChange={handleContactNumber}
