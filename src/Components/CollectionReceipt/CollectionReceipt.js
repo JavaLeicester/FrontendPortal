@@ -24,7 +24,18 @@ class CollectionReceipt extends React.Component {
             type,
             street,
             pieceData,
-            chargeableWeight
+            chargeableWeight,
+            mobile,
+
+            // Receiver Details
+            receiverName,
+            receiverContactNumber,
+            receiverHouseNumber,
+            receiverStreet,
+            receiverPostCode,
+            receiverCity
+
+
         } = this.props.location.state.objecta;
 
 
@@ -32,27 +43,62 @@ class CollectionReceipt extends React.Component {
         console.log(this.props.location.state.objecta);
 
         return(
+
             <Container>
-
                 <Header> Collection Receipt </Header>
+                 <Grid columns={3}>
+                     <Grid.Row>
 
-                <List>
-                    <List.Item> <strong>BookingDate:</strong> { bookingDate } </List.Item>
-                    <List.Item> <strong>BookingTimeFrom:</strong> {bookingTimeFrom} </List.Item>
-                    <List.Item> <strong>BookingTimeTo:</strong> { bookingTimeTo } </List.Item>
+                         <Grid.Column>
+                             <List>
+                                 <List.Item> <strong>Booking Date:</strong> { bookingDate } </List.Item>
+                                 <List.Item> <strong>Booking Time From:</strong> { bookingTimeFrom} </List.Item>
+                                 <List.Item> <strong>Booking Time To:</strong> { bookingTimeTo } </List.Item>
 
-                    <List.Item as='ul'>
-                        <strong> Address: </strong>
-                        <List.Item as='li'> { street } </List.Item>
-                        <List.Item as='li'>{ postcode } </List.Item>
-                        <List.Item as='li'> { city } </List.Item>
-                    </List.Item>
+                                 <br />
+                                 <br />
 
-                    <List.Item><strong>Product:</strong> {product} </List.Item>
+                                 <List.Item><strong>Product:</strong> {product} </List.Item>
 
-                    <List.Item><strong>Type:</strong> {type} </List.Item>
+                                 <List.Item><strong>Type:</strong> {type} </List.Item>
 
-                </List>
+                             </List>
+                         </Grid.Column>
+
+                         <Grid.Column>
+                             <Header> Collection Details </Header>
+                             <List>
+                                 <List.Item as="ul">
+                                     <List.Item as='li'> <strong> Name: </strong> { customerName } </List.Item>
+                                     <List.Item as='li'> <strong> Number: </strong> { mobile } </List.Item>
+                                 </List.Item>
+                             </List>
+
+                             <List>
+                                 <List.Item as="ul">
+                                     <strong> Address: </strong>
+                                     <List.Item as='li'> { street } </List.Item>
+                                     <List.Item as='li'> { postcode } </List.Item>
+                                     <List.Item as='li'> { city } </List.Item>
+                                 </List.Item>
+                             </List>
+                         </Grid.Column>
+
+                         <Grid.Column>
+                             <Header> Receiver Details </Header>
+
+                             <List>
+                                 <List.Item as="ul">
+                                     <strong>Address: </strong>
+                                     <List.Item as='li'> { receiverStreet } </List.Item>
+                                     <List.Item as='li'> {receiverPostCode } </List.Item>
+                                     <List.Item as='li'> {receiverCity} </List.Item>
+                                 </List.Item>
+                             </List>
+                         </Grid.Column>
+
+                     </Grid.Row>
+                 </Grid>
 
                 <Grid className='one column center aligned blue' relaxed='very' container columns={8} celled>
                     <Grid.Row>
