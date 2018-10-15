@@ -18,7 +18,6 @@ export class BookingList extends Component {
 
         this.handleGenerateReceipt = this.handleGenerateReceipt.bind(this);
         this.handleGenerateCollection = this.handleGenerateCollection.bind(this);
-
     }
 
     componentDidMount() {
@@ -32,7 +31,7 @@ export class BookingList extends Component {
         const options = [];
 
         // 46.101.34.160
-        axios.get('http://46.101.34.160:8083/api/bookings')
+        axios.get('http://localhost:8083/api/bookings')
             .then(response => _.map(response.data, (booking) => {
 
                 const option = {
@@ -41,6 +40,7 @@ export class BookingList extends Component {
                     city: booking.city,
                     customerName: booking.customerName,
                     bookingTimeFrom: booking.bookingTimeFrom,
+                    mobile: booking.mobile,
                     // Future fix booking.bookingTimeTo is undefined had to use bookingTime though elsewhere I use bookingTimeTo
                     bookingTimeTo: booking.bookingTime,
                     staffName: booking.staffName,
@@ -52,13 +52,19 @@ export class BookingList extends Component {
                     isLooselyPacked: booking.isLooselyPacked,
                     product: booking.product,
                     postcode: booking.postCode,
-                    pieceData: booking.piecesData
+                    pieceData: booking.piecesData,
+
+                    // Receiver Details
+                    receiverName: booking.receiverName,
+                    receiverContactNumber: booking.receiverContactNumber,
+                    receiverHouseNumber: booking.receiverHouseNumber,
+                    receiverStreet: booking.receiverStreet,
+                    receiverPostCode: booking.receiverPostCode,
+                    receiverCity: booking.receiverCity
+
                 };
 
-                console.log("The pieceData is ");
                 console.log(option.pieceData);
-
-
 
                 options.push(option);
             }))
@@ -77,6 +83,8 @@ export class BookingList extends Component {
 
         var objecta =  _.find(bookingReceipts,function(q) { return q.id === name });
 
+        alert(JSON.stringify(objecta, null, 4));
+
         this.props.history.push({
             pathname: '/collectionReceipt',
             state: { objecta }
@@ -88,13 +96,7 @@ export class BookingList extends Component {
 
         const { bookingReceipts } = this.state;
 
-        console.log("oooooooooooooo");
-        console.log(name);
-        console.log("tHE VALUE IS");
-        console.log(value);
-
-        console.log("The booking receipts are: ");
-        console.log(bookingReceipts);
+        alert(JSON.stringify(objecta, null, 4));
 
         var objecta =  _.find(bookingReceipts,function(q) { return q.id === name });
 
@@ -108,14 +110,12 @@ export class BookingList extends Component {
         });
     }
 
-
-
     render() {
 
-        //Properties
+        // Properties
         const { bookingReceipts, loading } = this.state;
 
-        //Functions
+        // Functions
         const { handleGenerateCollection, handleGenerateReceipt } = this;
 
         return(
@@ -132,7 +132,6 @@ export class BookingList extends Component {
                                 passedFunction={ handleGenerateReceipt }
 
                             />
-
                         );
                     })}
 
