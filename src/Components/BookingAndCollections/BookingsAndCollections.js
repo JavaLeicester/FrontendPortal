@@ -32,6 +32,15 @@ export class BookingsAndCollections extends Component {
             bookingTimeFrom: '',
             type:"",
             product:"",
+
+            // Receiver Details
+            receiverName: "",
+            receiverContactNumber: "",
+            receiverHouseNumber: "",
+            receiverStreet: "",
+            receiverPostCode: "",
+            receiverCity: "",
+
             typeOptions: [
                 {text: "air", value: "air"},
                 {text: "sea", value: "sea"},
@@ -46,9 +55,16 @@ export class BookingsAndCollections extends Component {
                 { text: "Hassain", value: "Hassain"}
             ],
             staffName:""
-
         };
 
+        // Receiver Details
+        this.handleReceiverName = this.handleReceiverName.bind(this);
+        this.handleReceiverContactNumber = this.handleReceiverContactNumber.bind(this);
+        this.handleReceiverHouseNumber = this.handleReceiverHouseNumber.bind(this);
+        this.handleReceiverStreet = this.handleReceiverStreet.bind(this);
+        this.handleReceiverPostCode = this.handleReceiverPostCode.bind(this);
+        this.handleReceiverCity = this.handleReceiverCity.bind(this);
+        // End Receiver details
 
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
         this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
@@ -81,7 +97,101 @@ export class BookingsAndCollections extends Component {
 
         this.handleStaffNameChange = this.handleStaffNameChange.bind(this);
 
+
+
     }
+
+    ////////////////////////
+    // Start Receiver details
+
+    handleReceiverName(event, {name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+
+    handleReceiverContactNumber(event, {name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+    handleReceiverHouseNumber(event, {name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+    handleReceiverStreet(event, {name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+    handleReceiverPostCode(event, {name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+    handleReceiverCity(event, {name, value}) {
+
+        event.preventDefault();
+
+        const { errorHandler } = this.props;
+
+        return Promise.resolve(this.setState({ [name]: value }))
+            .then(() => {
+                return this.handleFormValidation();
+            })
+            .then()
+            .catch(error => errorHandler(error));
+    }
+
+
+    // End Receiver details
+    //////////////////////
 
     handleHazardousGoods(event) {
         const { errorHandler } = this.props;
@@ -358,8 +468,21 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-        const { mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName } = this.state;
-        const newBooking = new Booking(mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName);
+
+        const { mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName,
+            receiverName, receiverContactNumber, receiverHouseNumber, receiverStreet, receiverPostCode, receiverCity} = this.state;
+
+        alert(receiverName);
+        alert(receiverContactNumber);
+        alert(receiverHouseNumber);
+        alert(receiverStreet);
+        alert(receiverPostCode);
+        alert(receiverCity);
+
+        const newBooking = new Booking(mobile, customerName, houseNumber, street, postcode,
+            city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,
+            bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName,
+            receiverName, receiverContactNumber, receiverHouseNumber, receiverStreet, receiverPostCode, receiverCity);
 
         alert(JSON.stringify(this.state, null, 4));
 
@@ -568,7 +691,16 @@ export class BookingsAndCollections extends Component {
             handleContactNumber,
             handleTypeChange,
             handleProductChange,
-            handleStaffNameChange
+            handleStaffNameChange,
+
+            // Receiver section
+            handleReceiverName,
+            handleReceiverCity,
+            handleReceiverPostCode,
+            handleReceiverStreet,
+            handleReceiverHouseNumber,
+            handleReceiverContactNumber
+
         } = this;
 
         return (
@@ -681,6 +813,7 @@ export class BookingsAndCollections extends Component {
                                 name='receiverName'
                                 placeholder='Receiver Name'
                                 label="Receiver Name"
+                                onChange={handleReceiverName}
 
                             />
                         </Form.Group>
@@ -691,6 +824,7 @@ export class BookingsAndCollections extends Component {
                                 name='receiverContactNumber'
                                 placeholder='Contact Number'
                                 label="Receiver Contact Number"
+                                onChange={handleReceiverContactNumber}
                             />
                         </Form.Group>
 
@@ -700,6 +834,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverHouseNumber"
                                 placeholder="House Number"
                                 label="Receiver House Number"
+                                onChange={handleReceiverHouseNumber}
                             />
                         </Form.Group>
 
@@ -709,6 +844,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverStreet"
                                 placeholder="Street"
                                 label="Receiver Street"
+                                onChange={handleReceiverStreet}
                             />
                         </Form.Group>
 
@@ -718,6 +854,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverPostCode"
                                 placeholder="postCode"
                                 label="Receiver postCode"
+                                onChange={handleReceiverPostCode}
                             />
                         </Form.Group>
 
@@ -727,6 +864,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverCity"
                                 placeholder="receiverCity"
                                 label="Receiver City"
+                                onChange={handleReceiverCity}
                             />
                         </Form.Group>
 

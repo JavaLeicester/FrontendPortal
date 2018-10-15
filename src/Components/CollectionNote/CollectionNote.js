@@ -26,7 +26,16 @@ class CollectionNote extends React.Component {
                 street,
                 pieceData,
                 chargeableWeight,
-                mobile
+                mobile,
+
+                // Receiver Details
+                receiverName,
+                receiverContactNumber,
+                receiverHouseNumber,
+                receiverStreet,
+                receiverPostCode,
+                receiverCity
+
         } = this.props.location.state.objecta;
 
         return(
@@ -73,8 +82,15 @@ class CollectionNote extends React.Component {
 
                         <Grid.Column>
                             <Header> Receiver Details </Header>
-                            <strong> To: { } </strong>
 
+                            <List>
+                                <List.Item as="ul">
+                                    <strong>Address: </strong>
+                                    <List.Item as='li'> { receiverStreet } </List.Item>
+                                    <List.Item as='li'> {receiverPostCode } </List.Item>
+                                    <List.Item as='li'> {receiverCity} </List.Item>
+                                </List.Item>
+                            </List>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
