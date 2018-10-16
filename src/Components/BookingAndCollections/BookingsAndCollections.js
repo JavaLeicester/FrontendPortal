@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 import Booking from "../../domain/Booking";
 import { addBooking } from "../ApiClient/ApiClient";
 import ReactCalendar from "../Calendar/ReactCalendar";
-import { validateInputs, ValidationError, CheckBox } from '../Common';
+import { validateInputs, ValidationError } from '../Common';
 import { bookingAndCollectionModel, NotificationData } from '../../domain/';
-import { Grid, Form, Segment, Input, Header, Divider, Select, TextArea, Button, Checkbox, Radio, Dropdown } from 'semantic-ui-react';
+import { Grid, Form, Segment, Input, Header, Divider, TextArea, Button } from 'semantic-ui-react';
 
 export class BookingsAndCollections extends Component {
 
@@ -196,7 +196,7 @@ export class BookingsAndCollections extends Component {
     handleHazardousGoods(event) {
         const { errorHandler } = this.props;
         const target = event.target;
-        const value = target.type == 'checkbox' ? target.checked : target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         return Promise.resolve(this.setState({ [name]: value }))
@@ -210,7 +210,7 @@ export class BookingsAndCollections extends Component {
     handleIsLooselyPacked(event) {
         const { errorHandler } = this.props;
         const target = event.target;
-        const value = target.type == 'checkbox' ? target.checked : target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         return Promise.resolve(this.setState({ [name]: value }))
@@ -457,7 +457,7 @@ export class BookingsAndCollections extends Component {
 
         // If there is more than one then remove from the array
         } else {
-            var modifiedArray = _.remove(piecesData, (onePiece) => onePiece.id === id);
+           // var modifiedArray = _.remove(piecesData, (onePiece) => onePiece.id === id);
             this.setState({piecesData: piecesData });
         }
 
@@ -683,11 +683,8 @@ export class BookingsAndCollections extends Component {
             handlePostCodeChange,
             handleCityChange,
             handleSpecialDeliveryChange,
-            handleHazardousGoods,
-            handleIsLooselyPacked,
-            handleBookingDate,
             handleBookingDateTest,
-            handleBookingTimeFrom,
+
             handleContactNumber,
             handleTypeChange,
             handleProductChange,
