@@ -1,0 +1,11 @@
+.login-form {
+    vertical-align: center;
+    text-align: center;
+    height: 100%;
+}
+
+.login_grid {
+    max-width: 450px;
+    background: #fff url('https://upload.wikimedia.org/wikipedia/commons/5/58/Sunset_2007-1.jpg') no-repeat;
+}
+
