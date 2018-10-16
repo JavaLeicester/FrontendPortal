@@ -100,7 +100,8 @@ export default function InputValidator (customerName,
             isFormValid = false;
         }
 
-        var bookingTimeFromResult = bookingTimeFrom.split(":");
+        // Not used
+       // var bookingTimeFromResult = bookingTimeFrom.split(":");
 
         if (isEmpty(bookingTimeFrom) || (bookingTimeFrom.length !== 5) || (isNaN(minutes)) || (isNaN(hours)) ) {
             validationErrors["bookingTimeFrom"] = {key: _.uniqueId(), isBookingDateValid: false, message: "please fill out booking Time From in the correct format"};
