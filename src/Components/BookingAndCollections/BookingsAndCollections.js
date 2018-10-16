@@ -728,7 +728,7 @@ export class BookingsAndCollections extends Component {
                         </Form.Group>
 
                         <Header>
-                            Collection Data
+                            Collection Data Two
                         </Header>
 
                         <Form.Group widths='equal' className='package'>
