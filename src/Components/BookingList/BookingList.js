@@ -18,6 +18,7 @@ export class BookingList extends Component {
 
         this.handleGenerateReceipt = this.handleGenerateReceipt.bind(this);
         this.handleGenerateCollection = this.handleGenerateCollection.bind(this);
+        this.handleBookingComplete = this.handleBookingComplete.bind(this);
     }
 
     componentDidMount() {
@@ -31,7 +32,7 @@ export class BookingList extends Component {
         const options = [];
 
         // 46.101.34.160
-        axios.get('http://localhost:8083/api/bookings')
+        axios.get('http://46.101.34.160:8083/api/bookings')
             .then(response => _.map(response.data, (booking) => {
 
                 const option = {
@@ -77,11 +78,29 @@ export class BookingList extends Component {
             .catch(error => console.log(error));
     }
 
+    handleBookingComplete(event, {name, value }) {
+
+        let { bookingReceipts } = this.state;
+
+        // Get the item that was clicked
+        var objecta = _.find(bookingReceipts, function(g) { return g.id == name });
+
+        // Remove from the bookingReceipts list the item that was clicked
+        var newList = _.remove(bookingReceipts, function(o) {
+            return o.id != objecta.name;
+         });
+
+        bookingReceipts = newList;
+
+        this.setState({ bookingReceipts });
+
+    }
+
     handleGenerateReceipt(event, { name, value }) {
 
         const { bookingReceipts } = this.state;
 
-        var objecta =  _.find(bookingReceipts,function(q) { return q.id === name });
+        var objecta =  _.find(bookingReceipts, function(q) { return q.id === name });
 
         alert(JSON.stringify(objecta, null, 4));
 
@@ -116,7 +135,7 @@ export class BookingList extends Component {
         const { bookingReceipts, loading } = this.state;
 
         // Functions
-        const { handleGenerateCollection, handleGenerateReceipt } = this;
+        const { handleGenerateCollection, handleGenerateReceipt, handleBookingComplete } = this;
 
         return(
 
@@ -130,6 +149,7 @@ export class BookingList extends Component {
                                 { ...bookingReceipt }
                                 onClick={ handleGenerateCollection }
                                 passedFunction={ handleGenerateReceipt }
+                                bookingCompleteFunction={ handleBookingComplete }
 
                             />
                         );
