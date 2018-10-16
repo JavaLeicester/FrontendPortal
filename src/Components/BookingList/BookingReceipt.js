@@ -1,6 +1,6 @@
 import React from 'react';
 import './BookingReceipt.css';
-import { Card, Grid, Image, Button, Divider } from 'semantic-ui-react';
+import { Card, Grid, Image, Button } from 'semantic-ui-react';
 
 const BookingReceipt = (props) => (
     <Grid.Row>

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { Grid, Header, Menu, Image, Container, List } from 'semantic-ui-react';
+import { Grid, Header, Container, List } from 'semantic-ui-react';
 
 class CollectionReceipt extends React.Component {
 
@@ -17,20 +17,19 @@ class CollectionReceipt extends React.Component {
             bookingTimeTo,
             city,
             customerName,
-            generalDescription,
-            houseNumber,
+
+
             postcode,
             product,
             type,
             street,
             pieceData,
-            chargeableWeight,
+
             mobile,
 
             // Receiver Details
-            receiverName,
-            receiverContactNumber,
-            receiverHouseNumber,
+
+
             receiverStreet,
             receiverPostCode,
             receiverCity

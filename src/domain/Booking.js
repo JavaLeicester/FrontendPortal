@@ -23,12 +23,12 @@ class Booking {
         this.type = type;
         this.staffName = staffName;
         this.postCode = postcode;
-        this.receiverName = receiverName,
-        this.receiverContactNumber = receiverContactNumber,
-        this.receiverHouseNumber = receiverHouseNumber,
-        this.receiverStreet = receiverStreet,
-        this.receiverPostCode = receiverPostCode,
-        this.receiverCity = receiverCity
+        this.receiverName = receiverName;
+        this.receiverContactNumber = receiverContactNumber;
+        this.receiverHouseNumber = receiverHouseNumber;
+        this.receiverStreet = receiverStreetl
+        this.receiverPostCode = receiverPostCode;
+        this.receiverCity = receiverCity;
     }
 }
 

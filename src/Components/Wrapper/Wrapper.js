@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {BookingList} from "../BookingList/BookingList";
 import {BookingsAndCollections} from "../BookingAndCollections/BookingsAndCollections";
-import BookingReceipt from "../BookingList/BookingReceipt";
 import CollectionNote from "../CollectionNote/CollectionNote";
 import CollectionReceipt from "../CollectionReceipt/CollectionReceipt";
 

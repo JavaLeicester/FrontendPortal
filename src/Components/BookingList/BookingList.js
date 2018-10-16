@@ -2,10 +2,10 @@ import _ from 'lodash';
 import axios from 'axios';
 import './BookingList.css';
 import React, { Component } from 'react';
-import Booking from '../../domain/Booking';
+
 import BookingReceipt from './BookingReceipt';
-import { getBooking } from "../ApiClient/ApiClient";
-import { Grid, Header, Container, Dimmer, Loader } from 'semantic-ui-react';
+
+import { Grid, Header, Dimmer, Loader } from 'semantic-ui-react';
 
 export class BookingList extends Component {
 
@@ -23,7 +23,6 @@ export class BookingList extends Component {
 
     componentDidMount() {
 
-        const { bookingReceipts } = this.state;
 
         this.setState({
             loading: true
@@ -83,11 +82,11 @@ export class BookingList extends Component {
         let { bookingReceipts } = this.state;
 
         // Get the item that was clicked
-        var objecta = _.find(bookingReceipts, function(g) { return g.id == name });
+        var objecta = _.find(bookingReceipts, function(g) { return g.id === name });
 
         // Remove from the bookingReceipts list the item that was clicked
         var newList = _.remove(bookingReceipts, function(o) {
-            return o.id != objecta.name;
+            return o.id !== objecta.name;
          });
 
         bookingReceipts = newList;
@@ -115,7 +114,7 @@ export class BookingList extends Component {
 
         const { bookingReceipts } = this.state;
 
-        alert(JSON.stringify(objecta, null, 4));
+      //  alert(JSON.stringify(objecta, null, 4));
 
         var objecta =  _.find(bookingReceipts,function(q) { return q.id === name });
 
@@ -139,7 +138,7 @@ export class BookingList extends Component {
 
         return(
 
-            <Grid className='ui fluid one column center aligned justified' className="bookingBackground" container verticalAlign='middle'>
+            <Grid className='ui fluid one column center aligned justified bookingBackground' container verticalAlign='middle'>
                 <Header> Booking list </Header>
 
                     { _.map(bookingReceipts, bookingReceipt => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Checkbox } from 'semantic-ui-react';
 
 const CheckBox = (props) => (
 

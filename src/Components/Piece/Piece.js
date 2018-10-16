@@ -1,6 +1,6 @@
 import './Piece.css';
 import React from 'react';
-import { Form, Button, Dropdown, Header } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 
 export class Piece extends React.Component {
 

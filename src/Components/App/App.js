@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.css';
 import { Grid } from 'semantic-ui-react';
 import { Notification } from  '../Common';
 import Wrapper from '../Wrapper/Wrapper';
-import { BookingsAndCollections } from  '../BookingAndCollections/BookingsAndCollections';
 
 class App extends React.Component {
 

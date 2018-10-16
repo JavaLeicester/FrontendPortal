@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Message, Transition, Header } from 'semantic-ui-react';
+import { Grid, Message, Transition } from 'semantic-ui-react';
 
 const Notification = (props) => (
     <Grid.Column width={16} className='left attached notification transparent'>
