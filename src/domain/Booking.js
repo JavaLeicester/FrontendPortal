@@ -26,7 +26,7 @@ class Booking {
         this.receiverName = receiverName;
         this.receiverContactNumber = receiverContactNumber;
         this.receiverHouseNumber = receiverHouseNumber;
-        this.receiverStreet = receiverStreetl
+        this.receiverStreet = receiverStreet;
         this.receiverPostCode = receiverPostCode;
         this.receiverCity = receiverCity;
     }
