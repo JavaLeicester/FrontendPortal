@@ -2,6 +2,13 @@
 # How to Contribute
 ### Trello and Github Integration
 
+## Prerequisites
+
+Have a private trello and github organisation account.
+
+Combine Trello + Github and Slack.
+
+
 ## Introduction
 Trello is used to represent the state of our Github repositories.
 One Github repo = One Trello Board.
