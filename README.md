@@ -36,7 +36,3 @@ Pull requests are how other people are able to contribute to your work.
 ## Done
 The team member who reviewed the card is responsible for moving the card from "For Revision" to "Done".
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 67f8f293cd65425d90d63710ed15e62047455c5b
