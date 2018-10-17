@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 [![CircleCI](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master.svg?style=svg&circle-token=a77468460958a73e30e81b9a2bf0c34975cbbfd8)](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master)
-=======
-[![CircleCI](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master.svg?style=svg&circle-token=a77468460958a73e30e81b9a2bf0c34975cbbfd8)](https://circleci.com/gh/ApexCargos/FEBookingAndCollections/tree/master)
-
 # How to Contribute
 ### Trello and Github Integration
 
@@ -40,4 +36,7 @@ Pull requests are how other people are able to contribute to your work.
 ## Done
 The team member who reviewed the card is responsible for moving the card from "For Revision" to "Done".
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 67f8f293cd65425d90d63710ed15e62047455c5b
