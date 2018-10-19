@@ -57,15 +57,6 @@ export class BookingsAndCollections extends Component {
             staffName:""
         };
 
-        // Receiver Details
-        this.handleReceiverName = this.handleReceiverName.bind(this);
-        this.handleReceiverContactNumber = this.handleReceiverContactNumber.bind(this);
-        this.handleReceiverHouseNumber = this.handleReceiverHouseNumber.bind(this);
-        this.handleReceiverStreet = this.handleReceiverStreet.bind(this);
-        this.handleReceiverPostCode = this.handleReceiverPostCode.bind(this);
-        this.handleReceiverCity = this.handleReceiverCity.bind(this);
-        // End Receiver details
-
         this.handleIsLooselyPacked = this.handleIsLooselyPacked.bind(this);
         this.handleHazardousGoods = this.handleHazardousGoods.bind(this);
 
@@ -75,36 +66,16 @@ export class BookingsAndCollections extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFormValidation = this.handleFormValidation.bind(this);
 
-        this.handleCustomerNameChange = this.handleCustomerNameChange.bind(this);
-        this.handleHouseNumberChange = this.handleHouseNumberChange.bind(this);
-        this.handleStreetChange = this.handleStreetChange.bind(this);
-        this.handlePostCodeChange = this.handlePostCodeChange.bind(this);
-        this.handleCityChange = this.handleCityChange.bind(this);
-        this.handleSpecialDeliveryChange = this.handleSpecialDeliveryChange.bind(this);
-
-        this.handleGeneralDescriptionChange = this.handleGeneralDescriptionChange.bind(this);
-
-        this.handleBookingDate = this.handleBookingDate.bind(this)
-
-        this.handleBookingTimeFrom = this.handleBookingTimeFrom.bind(this);
-        this.handleBookingTimeTo = this.handleBookingTimeTo.bind(this);
-
-        this.handleContactNumber = this.handleContactNumber.bind(this);
         this.handleBookingDateTest = this.handleBookingDateTest.bind(this);
 
         this.handleTypeChange = this.handleTypeChange.bind(this);
-        this.handleProductChange = this.handleProductChange.bind(this);
 
-        this.handleStaffNameChange = this.handleStaffNameChange.bind(this);
-
-
+        // Test method
+        this.handleAllEvents = this.handleAllEvents.bind(this);
 
     }
 
-    ////////////////////////
-    // Start Receiver details
-
-    handleReceiverName(event, {name, value}) {
+    handleAllEvents(event, {name, value}) {
 
         event.preventDefault();
 
@@ -117,81 +88,6 @@ export class BookingsAndCollections extends Component {
             .then()
             .catch(error => errorHandler(error));
     }
-
-
-    handleReceiverContactNumber(event, {name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleReceiverHouseNumber(event, {name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleReceiverStreet(event, {name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleReceiverPostCode(event, {name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleReceiverCity(event, {name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-
-    // End Receiver details
-    //////////////////////
 
     handleHazardousGoods(event) {
         const { errorHandler } = this.props;
@@ -221,36 +117,6 @@ export class BookingsAndCollections extends Component {
             .catch(error => errorHandler(error));
     }
 
-    handleBookingTimeTo(event, {name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-
-    }
-
-    handleBookingTimeFrom(event,{name, value}) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                    return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-
-    }
-
     handleBookingDateTest(date) {
 
         const { errorHandler } = this.props;
@@ -263,76 +129,6 @@ export class BookingsAndCollections extends Component {
             })
             .then()
             .catch(error => errorHandler(error));
-
-    }
-
-    handleBookingDate(event, { name, value }) {
-
-        event.preventDefault();
-
-        const { errorHandler } = this.props;
-
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-
-    handleCustomerNameChange(event, { name, value}) {
-
-        event.preventDefault();
-
-        // errorHandler points to the parent class App in particular
-        // the method handleError in the App.js class
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({ [name]: value }))
-        .then(() => {
-            return this.handleFormValidation();
-        })
-        .then() //works without the then()
-        .catch(error => errorHandler(error));
-    }
-
-    handleHouseNumberChange(event, { name, value }) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({ [name] : value})) // we put in a promise.resolve as we want to do this before validating form
-        .then(() => {
-            return this.handleFormValidation();
-        })
-            .then()
-            .catch(error => errorHandler(error));
-
-    }
-
-    handleStreetChange(event, {name, value }) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({ [name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-
-    }
-
-    handlePostCodeChange(event, {name, value }) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-
     }
 
     handleLooselyPackedClicked(event,{name, value}) {
@@ -346,48 +142,6 @@ export class BookingsAndCollections extends Component {
         ).then(
             console.log(this.state.isLooselyPacked)
         );
-
-    }
-
-    handleCityChange(event,{name, value}) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value}))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-
-    }
-
-    handleSpecialDeliveryChange(event,{name,value}) {
-
-        console.log(this.props);
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value}))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleGeneralDescriptionChange(event,{name,value}) {
-
-        console.log(this.props);
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
     }
 
     // In this branch we will be focusing on deployment
@@ -468,8 +222,8 @@ export class BookingsAndCollections extends Component {
         event.preventDefault();
         const { errorHandler, history } = this.props;
 
-
-        const { mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription, isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName,
+        const { mobile, customerName, houseNumber, street, postcode, city, specialInstructions, generalDescription,
+            isHazardousGoods, isLooselyPacked,  bookingDate, bookingTimeTo, bookingTimeFrom, piecesData, product, type, staffName,
             receiverName, receiverContactNumber, receiverHouseNumber, receiverStreet, receiverPostCode, receiverCity} = this.state;
 
         alert(receiverName);
@@ -519,8 +273,7 @@ export class BookingsAndCollections extends Component {
 
         Promise.resolve(_.cloneDeep(_.find(piecesDataClone, pieceData => pieceData.id === id)))
 
-            // pieceData the variable that we pass in is equivalent to the cloning of the
-            // match
+            // pieceData the variable that we pass in is equivalent to the cloning of the match
             .then(pieceData => {
 
                 // Keep the fields the same increment the id value
@@ -537,7 +290,7 @@ export class BookingsAndCollections extends Component {
                 console.log(indexOfPieceToDuplicate);
                 piecesDataClone.splice(indexOfPieceToDuplicate - 1 , 0, pieceToDuplicate);
 
-               // piecesDataClone.join();
+                // piecesDataClone.join();
                 console.log(piecesDataClone);
                 return Promise.resolve(piecesDataClone);
             })
@@ -551,7 +304,6 @@ export class BookingsAndCollections extends Component {
 
     // Child child Piece invokes this class as Parent passing
     // up all the relevant properties
-    ////
     handlePieceDataChange(id, nameOfField, valueOfField) {
 
         const { errorHandler } = this.props;
@@ -574,33 +326,7 @@ export class BookingsAndCollections extends Component {
             });
     }
 
-    handleContactNumber(event, {name, value}) {
-
-        console.log(name);
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value }))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-     handleStaffNameChange(event,{name,value}) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value}))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-    }
-
-    handleTypeChange(event, {name, value}) {
+    handleTypeChange(event,{name, value}) {
 
         this.setState({[name]: value});
 
@@ -652,19 +378,8 @@ export class BookingsAndCollections extends Component {
 
     }
 
-    handleProductChange (event, {name, value }) {
-
-        event.preventDefault();
-        const { errorHandler } = this.props;
-        return Promise.resolve(this.setState({[name]: value}))
-            .then(() => {
-                return this.handleFormValidation();
-            })
-            .then()
-            .catch(error => errorHandler(error));
-
-    }
-
+    // All the design work is done in one layer
+    // All the logic work is done it another one.
     render() {
 
         var { piecesData, validationResult, bookingDate, typeOptions, productOptions, staffOptions } = this.state;
@@ -676,27 +391,11 @@ export class BookingsAndCollections extends Component {
             handleDuplicatePiece,
             handleDeletePiece,
             handlePieceDataChange,
-            handleCustomerNameChange,
-            handleHouseNumberChange,
-            handleStreetChange,
-            handleGeneralDescriptionChange,
-            handlePostCodeChange,
-            handleCityChange,
-            handleSpecialDeliveryChange,
             handleBookingDateTest,
-
-            handleContactNumber,
             handleTypeChange,
-            handleProductChange,
-            handleStaffNameChange,
 
             // Receiver section
-            handleReceiverName,
-            handleReceiverCity,
-            handleReceiverPostCode,
-            handleReceiverStreet,
-            handleReceiverHouseNumber,
-            handleReceiverContactNumber
+            handleAllEvents
 
         } = this;
 
@@ -720,12 +419,12 @@ export class BookingsAndCollections extends Component {
                                 placeholder="Staff Name"
                                 selection
                                 options={ staffOptions }
-                                onChange={ handleStaffNameChange }
+                                onChange={ handleAllEvents }
                             />
                         </Form.Group>
 
                         <Header>
-                            Collection Data Two
+                            Collection Data
                         </Header>
 
                         <Form.Group widths='equal' className='package'>
@@ -734,7 +433,7 @@ export class BookingsAndCollections extends Component {
                                 name='customerName'
                                 placeholder='customerName'
                                 label="Customer name"
-                                onChange={handleCustomerNameChange}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -744,7 +443,7 @@ export class BookingsAndCollections extends Component {
                                 name='mobile'
                                 placeholder='Contact Number'
                                 label='Contact Number'
-                                onChange={handleContactNumber}
+                                onChange={ handleAllEvents }
                             />
                         </Form.Group>
 
@@ -754,7 +453,7 @@ export class BookingsAndCollections extends Component {
                                 name='houseNumber'
                                 placeholder='houseNumber'
                                 label="House number"
-                                onChange={handleHouseNumberChange}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -764,7 +463,7 @@ export class BookingsAndCollections extends Component {
                                 name='street'
                                 placeholder='street'
                                 label="street"
-                                onChange={handleStreetChange}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -774,7 +473,7 @@ export class BookingsAndCollections extends Component {
                                 name='postcode'
                                 placeholder='postcode'
                                 label="postcode"
-                                onChange={handlePostCodeChange}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -784,7 +483,7 @@ export class BookingsAndCollections extends Component {
                                 name='city'
                                 placeholder='city'
                                 label="city"
-                                onChange={handleCityChange}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -794,7 +493,7 @@ export class BookingsAndCollections extends Component {
                                 name="specialInstructions"
                                 placeholder="Special Instructions For Delivery"
                                 label="Special instructions for Delivery"
-                                onChange={handleSpecialDeliveryChange}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -810,7 +509,7 @@ export class BookingsAndCollections extends Component {
                                 name='receiverName'
                                 placeholder='Receiver Name'
                                 label="Receiver Name"
-                                onChange={handleReceiverName}
+                                onChange={handleAllEvents}
 
                             />
                         </Form.Group>
@@ -821,9 +520,10 @@ export class BookingsAndCollections extends Component {
                                 name='receiverContactNumber'
                                 placeholder='Contact Number'
                                 label="Receiver Contact Number"
-                                onChange={handleReceiverContactNumber}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
+
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Field
@@ -831,7 +531,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverHouseNumber"
                                 placeholder="House Number"
                                 label="Receiver House Number"
-                                onChange={handleReceiverHouseNumber}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -841,7 +541,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverStreet"
                                 placeholder="Street"
                                 label="Receiver Street"
-                                onChange={handleReceiverStreet}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -851,7 +551,7 @@ export class BookingsAndCollections extends Component {
                                 name="receiverPostCode"
                                 placeholder="postCode"
                                 label="Receiver postCode"
-                                onChange={handleReceiverPostCode}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
@@ -861,13 +561,13 @@ export class BookingsAndCollections extends Component {
                                 name="receiverCity"
                                 placeholder="receiverCity"
                                 label="Receiver City"
-                                onChange={handleReceiverCity}
+                                onChange={handleAllEvents}
                             />
                         </Form.Group>
 
                         <Divider />
 
-                        <Header> Enter Type and Product </Header>
+                        <Header> Enter Type and Product: </Header>
 
                         <Form.Group widths='equal' className='package'>
                             <Form.Dropdown
@@ -887,7 +587,7 @@ export class BookingsAndCollections extends Component {
                                 placeholder="Select a product"
                                 selection
                                 options={ productOptions }
-                                onChange={ handleProductChange }
+                                onChange={ handleAllEvents }
 
                             />
                         </Form.Group>
@@ -907,7 +607,7 @@ export class BookingsAndCollections extends Component {
                                 label="Enter the Booking Date"
                                 placeholder="DD/MM/YYYY"
                                 name="bookingDate"
-                                onChange={this.handleBookingDate}
+                                onChange={this.handleAllEvents}
                                 value = { this.state.bookingDate }
                             />
                         </Form.Group>
@@ -918,7 +618,7 @@ export class BookingsAndCollections extends Component {
                                 label="Enter a Booking time from: "
                                 placeholder="use 24 hour time (MM/HH)"
                                 name="bookingTimeFrom"
-                                onChange={this.handleBookingTimeFrom}
+                                onChange={this.handleAllEvents}
                             />
                             <Form.Input
                                 fluid
@@ -926,7 +626,7 @@ export class BookingsAndCollections extends Component {
                                 label="Enter a Booking time to: "
                                 placeholder="use 24 hour time (MM/HH)"
                                 name="bookingTimeTo"
-                                onChange={this.handleBookingTimeTo}
+                                onChange={this.handleAllEvents}
                             />
                         </Form.Group>
 
@@ -935,7 +635,7 @@ export class BookingsAndCollections extends Component {
                                 control={TextArea}
                                 label="General description of Goods"
                                 placeholder="General description of Goods"
-                                onChange={handleGeneralDescriptionChange}
+                                onChange={handleAllEvents}
                                 name="generalDescription"
                             />
                         </Form.Group>
@@ -974,13 +674,12 @@ export class BookingsAndCollections extends Component {
                             })
                         }
 
-                            <ValidationError validationErrors={validationErrors} />
+                        <ValidationError validationErrors={validationErrors} />
 
                         <Button
                             content="Create a booking and collection"
                             className="red small"
                         />
-
                     </Form>
 
                 </Grid.Column>
