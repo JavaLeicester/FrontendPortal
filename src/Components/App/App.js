@@ -2,9 +2,20 @@ import './App.css';
 import _ from 'lodash';
 import React from 'react';
 import 'semantic-ui-css/semantic.css';
+
+import Home from '../../Home';
+import login from '../../Components/Login';
+import SignUp from '../../Components/SignUp';
+
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import app from "../../base";
+
 import { Grid } from 'semantic-ui-react';
 import { Notification } from  '../Common';
 import Wrapper from '../Wrapper/Wrapper';
+
+import PrivateRoute from "../../PrivateRoute";
 
 class App extends React.Component {
 
@@ -18,7 +29,10 @@ class App extends React.Component {
           isShowNotification: false,
           message: '',
         },
-      }
+        authenticated: false,
+        user: null,
+        loading: true
+      };
 
       this.handleError = this.handleError.bind(this);
       this.showNotification = this.showNotification.bind(this);
@@ -59,13 +73,57 @@ class App extends React.Component {
         this.setState({notification})
     }
 
+    componentWillMount() {
+        app.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    authenticated: true,
+                    currentUser: user,
+                    loading: false
+                });
+            } else {
+                this.setState({
+                    authenticated:false,
+                    currentUser:null,
+                    loading: false
+
+                });
+            }
+        });
+    }
+
     render() {
-      const { notification } = this.state;
+
+      // const { notification } = this.state;
+
+      const { authenticated, loading } = this.state;
+
+      if (loading) {
+          return <p> Loading ... </p>;
+      }
+
+      /*<Route exact path="/" component={Home} />*/
+
       return (
-            <Grid>
+          <Router>
+              <div>
+
+                <PrivateRoute
+                    exact
+                    path="/"
+                    component={Home}
+                    authenticated={authenticated}
+                />
+                <Route exact path="/login" component={login} />
+                <Route exact path="/signup" component={SignUp} />
+              </div>
+          </Router>
+
+           /* <Grid>
                 <Notification {...notification } />
                 <Wrapper errorHandler={this.handleError} />
             </Grid>
+            */
         );
     }
 
