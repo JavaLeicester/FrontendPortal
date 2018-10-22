@@ -11,7 +11,6 @@ export default function Wrapper(props) {
     return (
         <Router>
             <Switch>
-
                 <Route
                   exact
                   path="/"
