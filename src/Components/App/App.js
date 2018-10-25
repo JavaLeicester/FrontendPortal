@@ -107,7 +107,6 @@ class App extends React.Component {
       return (
           <Router>
               <div>
-
                 <PrivateRoute
                     exact
                     path="/"
@@ -116,6 +115,7 @@ class App extends React.Component {
                 />
                 <Route exact path="/login" component={login} />
                 <Route exact path="/signup" component={SignUp} />
+
               </div>
           </Router>
 
