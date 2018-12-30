@@ -63,7 +63,7 @@ class App extends React.Component {
         }
 
         this.showNotification(styling, message, title);
-        setTimeout(this.clearNotification, duration)
+        setTimeout(this.clearNotification, duration);
     }
 
 
