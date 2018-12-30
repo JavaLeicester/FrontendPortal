@@ -7,13 +7,10 @@ import Home from '../../Home';
 import login from '../../Components/Login';
 import SignUp from '../../Components/SignUp';
 
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
 
 import app from "../../base";
 
-import { Grid } from 'semantic-ui-react';
-import { Notification } from  '../Common';
-import Wrapper from '../Wrapper/Wrapper';
 
 import PrivateRoute from "../../PrivateRoute";
 
