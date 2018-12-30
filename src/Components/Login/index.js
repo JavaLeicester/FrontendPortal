@@ -17,7 +17,7 @@ class LoginContainer extends Component {
                 .auth()
                 .signInWithEmailAndPassword(email.value, password.value)
             this.props.history.push("/");
-
+            console.log(user);
         } catch (error) {
             alert(error);
         }
